@@ -1,2 +1,2 @@
 # OHJ1ryhmatyo
-Ohjelmistotuotanto I-kurssin ryhmätyö. 
+Ohjelmistotuotanto I-kurssin ryhmätyö.
