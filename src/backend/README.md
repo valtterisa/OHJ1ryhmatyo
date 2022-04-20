@@ -1,6 +1,6 @@
 # Backend 
 
-###GET, POST, DELETE (select, insert, delete): 
+### GET, POST, DELETE (select, insert, delete): 
 doSQL(_String_ **metodi**, _String_ **taulu**, _HashMap<String><String>_ **parametrit**);
 
 ### PUT (update): 
