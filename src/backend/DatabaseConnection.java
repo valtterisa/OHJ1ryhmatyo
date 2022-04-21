@@ -68,7 +68,7 @@ public class DatabaseConnection {
      * @param parameters HashMap<String, String>; Parametrit avain-arvo -pareina.
      * @return Data kaksiuloitteisessa ArrayList:ssä
      */
-    public ArrayList doSQL(String method, String table, HashMap<String, String> parameters) {
+    public ArrayList<ArrayList<String>> doSQL(String method, String table, HashMap<String, String> parameters) {
 
         ArrayList<ArrayList<String>> list = new ArrayList<>();
 
@@ -91,7 +91,7 @@ public class DatabaseConnection {
 
                 int row = 0;
                 while(res.next()) {                                              // käy läpi res-muuttujan ja mäppää taulukon kaksiuloitteeseen ArrayListiin
-                    list.add(new ArrayList());
+                    list.add(new ArrayList<>());
                     for (int col = 0; col < (res.getMetaData().getColumnCount()); col++) {
                         list.get(row).add(res.getString(res.getMetaData().getColumnLabel(col + 1)));
                     }
@@ -104,7 +104,6 @@ public class DatabaseConnection {
 
                 ResultSet insertIdRes = statement.getGeneratedKeys();
 
-                String insertIdColumn = null;
                 int insertId = -1;
                 while (insertIdRes.next()) {
                     insertId = insertIdRes.getInt(1);
@@ -151,7 +150,7 @@ public class DatabaseConnection {
      * @param id String[]; Manipuloitavan sarakkeen id:n avain ja arvo taulukossa.
      * @return Data kaksiuloitteisessa ArrayList:ssä
      */
-    public ArrayList doSQL(String method, String table, HashMap<String, String> parameters, String[] id) {
+    public ArrayList<ArrayList<String>> doSQL(String method, String table, HashMap<String, String> parameters, String[] id) {
 
         ArrayList<ArrayList<String>> list = new ArrayList<>();
 
@@ -197,11 +196,11 @@ public class DatabaseConnection {
 
         DatabaseConnection db = new DatabaseConnection();                       // Tietokantayhteys
 
-        HashMap<String, String> hakuehdot = new HashMap();                      // Haku rajatuilla ehdoilla
+        HashMap<String, String> hakuehdot = new HashMap<String, String>();                      // Haku rajatuilla ehdoilla
         hakuehdot.put("etunimi", "Kullervo");
         hakuehdot.put("postinro", "18890");
 
-        HashMap<String, String> uusiAsiakas = new HashMap();                    // Tiedot uudelle lisättävälle asiakkaalle
+        HashMap<String, String> uusiAsiakas = new HashMap<String, String>();                    // Tiedot uudelle lisättävälle asiakkaalle
         //asiakasParam.put("asiakas_id", "10");                                 // Tietokannassa auto-increment, joten ei tarvitse
         uusiAsiakas.put("postinro", "18890");
         uusiAsiakas.put("etunimi", "Kullervo");
@@ -210,7 +209,7 @@ public class DatabaseConnection {
         uusiAsiakas.put("email", "kullervo.kulkija@outlook.com");
         uusiAsiakas.put("puhelinnro", "7777777777");
 
-        HashMap<String, String> muokattavaAsiakas = new HashMap();              // Tiedot muokatavalle asiakkaalle
+        HashMap<String, String> muokattavaAsiakas = new HashMap<String,String>();              // Tiedot muokatavalle asiakkaalle
         //muokattavaAsiakas.put("asiakas_id", "2");                             // muokattavan asiakkaan ID tulee omassa kentässään. EI TÄHÄN
         muokattavaAsiakas.put("postinro", "70150");
         muokattavaAsiakas.put("etunimi", "Pertti");
