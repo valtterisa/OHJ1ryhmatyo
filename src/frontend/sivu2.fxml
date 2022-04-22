@@ -13,7 +13,7 @@
       <ImageView fitHeight="96.0" fitWidth="112.0" layoutX="343.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fitHeight="96.0" fitWidth="105.0" layoutX="477.0" layoutY="204.0" pickOnBounds="true" preserveRatio="true" />
       <Button layoutX="425.0" layoutY="325.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" text="Varaa" />
-      <TextArea layoutX="14.0" layoutY="14.0" prefHeight="50.0" prefWidth="57.0" promptText="Logo" />
+      <TextArea layoutX="14.0" layoutY="14.0" prefHeight="45.0" prefWidth="56.0" promptText="Logo" />
       <TextArea layoutX="94.0" layoutY="44.0" prefHeight="39.0" prefWidth="176.0" promptText="Sijainti" />
    </children>
 </Pane>

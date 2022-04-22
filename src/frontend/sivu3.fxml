@@ -5,7 +5,15 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TextArea layoutX="14.0" layoutY="8.0" prefHeight="61.0" prefWidth="60.0" />
-      <TextArea layoutX="107.0" layoutY="50.0" prefHeight="39.0" prefWidth="155.0" />
+      <TextArea layoutX="14.0" layoutY="8.0" prefHeight="61.0" prefWidth="60.0" promptText="Logo" />
+      <TextArea layoutX="107.0" layoutY="50.0" prefHeight="39.0" prefWidth="155.0" promptText="&quot;Varauksesi&quot; + millon saapuu, lähtee ja vieraat" />
+      <TextField layoutX="107.0" layoutY="106.0" promptText="Vuokraajan yhteystieto 1" />
+      <TextField layoutX="107.0" layoutY="140.0" promptText="Vuokraajan yhteystieto 2" />
+      <TextField layoutX="107.0" layoutY="175.0" promptText="Vuokraajan yhteystieto 3" />
+      <TextField layoutX="107.0" layoutY="212.0" promptText="Vuokraajan yhteystieto 4" />
+      <TextField layoutX="107.0" layoutY="251.0" promptText="Vuokraajan yhteystieto 5" />
+      <TextField layoutX="107.0" layoutY="288.0" promptText="Vuokraajan yhteystieto 6" />
+      <TextArea layoutX="365.0" layoutY="49.0" prefHeight="186.0" prefWidth="193.0" promptText="Hintaerittely" />
+      <Button layoutX="479.0" layoutY="269.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="79.0" text="Maksa" />
    </children>
 </Pane>
