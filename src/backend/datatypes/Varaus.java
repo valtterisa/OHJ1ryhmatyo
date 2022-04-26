@@ -1,6 +1,6 @@
-package src.data;
+package src.backend.datatypes;
 
-import src.backend.ObjectGenerator;
+import src.backend.api.BackendAPI;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,6 +13,8 @@ public class Varaus {
     private String vahvistus_pvm;
     private String varattu_alkupvm;
     private String varattu_loppupvm;
+
+    private ArrayList<VarauksenPalvelu> palvelut;
 
     private Asiakas asiakas;
     private Mokki mokki;
@@ -60,7 +62,7 @@ public class Varaus {
         if (asiakas == null) {
             HashMap<String, String> params = new HashMap<String, String>();
             params.put("asiakas_id", this.asiakas_id);
-            setAsiakas(ObjectGenerator.getAsiakas(params).get(0));
+            setAsiakas(BackendAPI.getAsiakas(params).get(0));
         }
         return asiakas;
     }
@@ -70,9 +72,18 @@ public class Varaus {
         if (mokki == null) {
             HashMap<String, String> params = new HashMap<String, String>();
             params.put("mokki_id", this.mokki_mokki_id);
-            setMokki(ObjectGenerator.getMokki(params).get(0));
+            setMokki(BackendAPI.getMokki(params).get(0));
         }
         return mokki;
+    }
+
+    public ArrayList<VarauksenPalvelu> getPalvelut() {
+        if (this.palvelut == null) {
+            HashMap<String, String> params = new HashMap<>();
+            params.put("varaus_id", this.varaus_id);
+            this.palvelut = BackendAPI.getVarauksenPalvelu(params);
+        }
+        return palvelut;
     }
 
     public void setMokki(Mokki mokki) {
@@ -94,16 +105,5 @@ public class Varaus {
                 '}' +
                 "\nVARAAJA: " + this.asiakas +
                 "\nMÖKKI: " + this.mokki;
-    }
-
-    public static void main(String[] args) {
-        HashMap<String, String> params = new HashMap<>();
-        params.put("varaus_id", "1");
-
-        ArrayList<Varaus> varaus = ObjectGenerator.getVaraus(params);
-
-        System.out.println(varaus.get(0));
-        System.out.println(varaus.get(0).getAsiakas());
-        System.out.println(varaus.get(0));
     }
 }
