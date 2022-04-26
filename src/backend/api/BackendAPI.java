@@ -14,6 +14,15 @@ public class BackendAPI {
     public static Asiakas postAsiakas(HashMap<String, String> params) {                                                 // Lähettää asiakkaan tietokantaan annetuilla tiedoilla
         return AsiakasFunctions.postAsiakas(params);                                                                    // Palauttaa lisätyn asiakkaan
     }
+    public static Asiakas updateAsiakas(HashMap<String, String> params, String id) {                                    // Päivittää annetut asiakkaan tiedot tietokantaan
+        /* TODO */                                                                                                      // Palauttaa muokatun asiakkaan
+        return null;
+    }
+    public static String deleteAsiakas(HashMap<String, String> params) {                                                // Lähettää asiakkaan tietokantaan annetuilla tiedoilla
+        /* TODO */                                                                                                      // Palauttaa poistettujen asiakkaiden määrän
+        return null;
+    }
+
 
     // MÖKKI
     public static ArrayList<Mokki> getMokki(HashMap<String, String> params) {                                           // Hakee parametreja vastaavat mökit tietokannasta
@@ -49,8 +58,20 @@ public class BackendAPI {
     }
 
     // VARAUS
-    public static ArrayList<Varaus> getVaraus(HashMap<String, String> params) {                                         // Palauttaa varaukset annetuilla parametreilla
-        return VarausFunctions.getVaraus(params);
+    public static ArrayList<Varaus> getVaraus(HashMap<String, String> params) {                                         // Hakee parametreja vastaavat varaukset tietokannasta
+        return VarausFunctions.getVaraus(params);                                                                       // Palauttaa listan varauksia
+    }
+    public static ArrayList<Varaus> postVaraus(HashMap<String, String> params) {                                        // Lähettää varauksen tietokantaan annetuilla tiedoilla
+        /*TODO*/
+        return null;                                                                                                    // Palauttaa lisätyn varauksen
+    }
+    public static ArrayList<Varaus> updateVaraus(HashMap<String, String> params) {                                      // Päivittää annetut varauksen tiedot tietokantaan
+        /*TODO*/
+        return null;                                                                                                    // Palauttaa päivitetyn varauksen
+    }
+    public static ArrayList<Varaus> deletetVaraus(HashMap<String, String> params) {                                     // Poistaa mökit tetokannasta
+        /*TODO*/
+        return null;                                                                                                    // Palauttaa poistettujen varausten määrän.
     }
 
     // VARAUKSEN PALVELU
