@@ -138,6 +138,49 @@ public class DatabaseConnection {
     }
 
     /**
+     * Muodostaa yhteyden tietokantaan ja tekee sinne dynaamisen kyselyn annetun näkymän nimen mukaan. Lopuksi sulkee tietokantayhteyden, sekä palauttaa tietokannasta
+     * saadun datan, tai tietoa tuloksesta kaksiuloitteidessa ArrayList:ssä.
+     * <p>Metodi REST-rajapinnan mukaan: GET (select)
+     * @param method  String-muuttuja; joko: <b>get, post tai delete</b>
+     * @param viewName String muuttuja; Halutun näkymän nimi
+     * @return Data kaksiuloitteisessa ArrayList:ssä
+     */
+    public ArrayList<ArrayList<String>> doSQL(String method, String viewName) {
+
+        ArrayList<ArrayList<String>> list = new ArrayList<>();
+    
+        String sqlQuery = "SELECT * FROM " + viewName;  // Muodostetaan sql-query halutulle näkymälle
+
+        System.out.println("Making query: " + sqlQuery);
+
+        try {
+            PreparedStatement statement = this.connect().prepareStatement(sqlQuery,  // Asettaa generoidun SQL-lauseen statement-oliolle
+                                                Statement.RETURN_GENERATED_KEYS);
+
+
+            if (method.equalsIgnoreCase("get")) {                     // METHOD = GET
+                ResultSet res = statement.executeQuery();                        // res-muuttujassa queryn palauttama data
+
+                int row = 0;
+                while(res.next()) {                                              // käy läpi res-muuttujan ja mäppää taulukon kaksiuloitteeseen ArrayListiin
+                    list.add(new ArrayList<>());
+                    for (int col = 0; col < (res.getMetaData().getColumnCount()); col++) {
+                        list.get(row).add(res.getString(res.getMetaData().getColumnLabel(col + 1)));
+                    }
+                    row++;
+                }
+            }
+
+        } catch (SQLException e) {                                              // Virheenkäsittelyä
+            e.printStackTrace();
+        } finally {                                                             // Lopuksi katkaisee tietokantayhteyden
+            this.disconnect();
+        }
+
+        return list;                                                            // Palauttaa listan
+    }
+
+    /**
      * Muodostaa yhteyden tietokantaan ja tekee sinne dynaamisesti generoidun SQL-kyselyn
      * annetuista parametreista. Lopuksi sulkee tietokantayhteyden, sekä palauttaa tietokannasta
      * saadun datan, tai tietoa tuloksesta kaksiuloitteidessa ArrayList:ssä.
@@ -196,6 +239,7 @@ public class DatabaseConnection {
 
         DatabaseConnection db = new DatabaseConnection();                       // Tietokantayhteys
 
+        /*
         HashMap<String, String> hakuehdot = new HashMap<String, String>();                      // Haku rajatuilla ehdoilla
         hakuehdot.put("etunimi", "Kullervo");
         hakuehdot.put("postinro", "18890");
@@ -228,6 +272,10 @@ public class DatabaseConnection {
         System.out.println("POST (uusi asiakas): " + db.doSQL("post", "asiakas", uusiAsiakas));
         System.out.println("PUT (update): " + db.doSQL("put", "asiakas", muokattavaAsiakas, muokattavaID));
         System.out.println("DELETE (delete): " + db.doSQL("delete", "asiakas", poistettavaID));
+        */
+
+        // tulostaa halutun näkymän 
+        System.out.println(db.doSQL("get", "customersByPostnumber"));
     }
 }
 
