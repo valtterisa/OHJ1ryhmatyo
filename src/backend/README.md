@@ -1,4 +1,28 @@
+# Frontendille funktiot BackendAPI.java -luokassa!
+
+Demo: 
+
+```
+    public static ArrayList<Mokki> getMokki(HashMap<String, String> params) {            // Hakee parametreja vastaavat mökit tietokannasta
+        return MokkiFunctions.getMokki(params);                                          // Palauttaa listan mökkejä
+    }
+    public static Mokki postMokki(HashMap<String, String> params) {                      // Lähettää mökin tietokantaan annetuilla tiedoilla
+        return MokkiFunctions.postMokki(params);                                         // Palauttaa lisätyn mökin
+    }
+    public static Mokki updateMokki(HashMap<String, String> params, String id) {         // Päivittää annetut mökin tiedot tietokantaan
+        return MokkiFunctions.putMokki(params, id);                                      // Palauttaa muokatun mökin
+    }
+    public static String deleteMokki(HashMap<String, String> params) {                   // Poistaa mökit tetokannasta
+        return MokkiFunctions.deleteMokki(params);                                       // Palauttaa poistettujen mökkien määrän
+    }
+```
+Funktioista palautuvat olioilla on myös GET-metodit, joilla ne osaavat hakea itse puuttuvaa dataa. Esim. haetulla mökillä **ei ole vielä postitoimipaikkaa**, mutta mutta kutsuttaessa **mökki.getPostitoimipaikka()**, hakee mökki-olio **itse itselleen tietokannasta oikean postitoimipaikan** ja palauttaa sen.
+
+#
 # Backend 
+
+
+## DatabaseConnection.java on suoraan yhteydessä tietokantaan
 
 DatabaseConnection-luokka tekee REST-rajapinnan mukaisia toimintoja tietokannalle. Metodeina get, post, put ja delete, joilla voi hakea, lisätä, muokata ja poistaa tietokannan tietoja.
 
