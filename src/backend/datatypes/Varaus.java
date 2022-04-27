@@ -77,6 +77,7 @@ public class Varaus {
         return mokki;
     }
 
+    //Palauttaa Listan VarauksenPalvelu -olioita. Jos ei ole, hakee ne varaus_id:llä
     public ArrayList<VarauksenPalvelu> getPalvelut() {
         if (this.palvelut == null) {
             HashMap<String, String> params = new HashMap<>();
