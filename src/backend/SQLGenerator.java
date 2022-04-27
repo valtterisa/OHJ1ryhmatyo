@@ -47,6 +47,23 @@ public class SQLGenerator {
         return sql.toString();                                              // Palauttaa SQL-lauseen String-muuttujassa
     }
 
+    private static String generatePut(String table, HashMap<String, String> parameters, HashMap<String, String> where) {
+        StringBuilder sql;
+        sql = new StringBuilder("UPDATE " + table + " SET ");
+        for (String str : parameters.keySet()) {                            // sarakkeiden nimet
+            sql.append(str).append(" = ?,");
+        }
+        if (sql.charAt(sql.length() - 1) == ',') {                          // Jos lopussa pilkku, poistaa sen
+            sql = new StringBuilder(sql.substring(0, sql.length() - 1));
+        }
+        sql.append(" WHERE (1=1)");
+        for (String str : where.keySet()) {
+            sql.append(" AND ");
+            sql.append(str).append(" = ?");
+        }
+        return sql.toString();                                              // Palauttaa SQL-lauseen String-muuttujassa
+    }
+
     private static String generateDelete(String table, HashMap<String, String> parameters) {
         StringBuilder sql;
         sql = new StringBuilder("DELETE FROM " + table);
@@ -110,6 +127,22 @@ public class SQLGenerator {
 
         if (method.equalsIgnoreCase("put")) {                   // METHOD = PUT
             sql = generatePut(table, parameters, id);
+        }
+        else {                                                              // Jos metodi on muu kuin put, ei ota huomioon id-kenttää
+            sql = generateSQL(method, table, parameters);
+        }
+
+        System.out.println("Generated SQL: " + sql);                        // Jos kaikki ok, palauttaa generoidun SQL-lauseen
+        return sql;
+    }
+
+    // POIKKEUSTAPAUS VARAUKSEN PALVELUILLE
+    public static String generateSQL(String method, String table, HashMap<String, String> parameters, HashMap<String, String> where) {
+        System.out.println("Generating SQL...");
+        String sql = null;
+
+        if (method.equalsIgnoreCase("put")) {                   // METHOD = PUT
+            sql = generatePut(table, parameters, where);
         }
         else {                                                              // Jos metodi on muu kuin put, ei ota huomioon id-kenttää
             sql = generateSQL(method, table, parameters);
