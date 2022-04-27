@@ -233,6 +233,51 @@ public class DatabaseConnection {
         return list;                                                            // Palauttaa listan
     }
 
+    // POIKKEUSTAPAUS VARAUKSEN PALVELUILLE
+    public ArrayList<ArrayList<String>> doSQL(String method, String table, HashMap<String, String> parameters, HashMap<String, String> id) {
+
+        ArrayList<ArrayList<String>> list = new ArrayList<>();
+
+        if (!method.equalsIgnoreCase("put")) {                       // Jos metodi ei ole put, niin ignoraa id-parametrin
+            list = doSQL(method, table, parameters);
+            return list;
+        }
+        //METHOD = PUT
+        String sql = SQLGenerator.generateSQL(method, table, parameters, id);   // Tekee parametroitavan SQL-lauseen annetuista tiedoista
+        System.out.println("Making query: " + sql);
+
+        try {
+            PreparedStatement statement = this.connect().prepareStatement(sql, // Asettaa generoidun SQL-lauseen statement-oliolle
+                    Statement.RETURN_GENERATED_KEYS);
+
+            int i = 0;
+            for (String str : parameters.keySet()) {                            // Parametroi SQL-lauseen ?-muuttujat
+                statement.setString(i+1, parameters.get(str));
+                i++;
+            }
+            for (String str : id.keySet()) {                            // Parametroi SQL-lauseen ?-muuttujat
+                statement.setString(i+1, id.get(str));
+                i++;
+            }
+            //statement.setString(i+1, id[1]);
+
+            int res = statement.executeUpdate();                                // res-muuttujassa updaten palauttama data
+
+            System.out.println("Update successful, affected rows: " + res);
+            HashMap<String, String> putReturn = new HashMap<>();
+            putReturn = id;
+
+            list = this.doSQL("get", table, putReturn);                  // palautetaan listassa muokattu rivi tietokannasta
+
+        } catch (SQLException e) {                                              // Virheenkäsittelyä
+            e.printStackTrace();
+        } finally {                                                             // Lopuksi katkaisee tietokantayhteyden
+            this.disconnect();
+        }
+
+        return list;                                                            // Palauttaa listan
+    }
+
 
     /*Tietokantayhteyden testailua*/
     public static void main(String[] args) {
@@ -275,7 +320,19 @@ public class DatabaseConnection {
         */
 
         // tulostaa halutun näkymän 
-        System.out.println(db.doSQL("get", "customersByPostnumber"));
+        //System.out.println(db.doSQL("get", "customersByPostnumber"));
+
+        HashMap<String, String> muokattavapalvelu = new HashMap<String,String>();
+        muokattavapalvelu.put("lkm", "3");
+
+        HashMap<String, String> muokattavapalveluID = new HashMap<String,String>();
+        muokattavapalveluID.put("varaus_id", "1");
+        muokattavapalveluID.put("palvelu_id", "1");
+
+        System.out.println(SQLGenerator.generateSQL("put", "varauksen_palvelut", muokattavapalvelu, muokattavapalveluID));
+        System.out.println("---------------------------");
+        System.out.println(db.doSQL("put", "varauksen_palvelut", muokattavapalvelu, muokattavapalveluID));
+
     }
 }
 
