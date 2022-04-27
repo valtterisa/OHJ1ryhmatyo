@@ -113,7 +113,7 @@ public class DatabaseConnection {
                 list.clear();
                 ArrayList<String> success = new ArrayList<>();
                 success.add("Insert successful");                               // palautetaan listassa viesti, lisättyjen rivien määrä ja lisätyn rivin id
-                success.add("" + res);
+                success.add("" + res);                                          // Ei palauteta suoraan kaikkea dataa rivistä, koska osalla tauluista ei ole autoincrement-avaimia
                 success.add("" + insertId);
                 list.add(success);
             }
