@@ -2,7 +2,9 @@ package src.backend.api;
 
 import src.backend.datatypes.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class BackendAPI {
@@ -61,31 +63,79 @@ public class BackendAPI {
     public static ArrayList<Varaus> getVaraus(HashMap<String, String> params) {                                         // Hakee parametreja vastaavat varaukset tietokannasta
         return VarausFunctions.getVaraus(params);                                                                       // Palauttaa listan varauksia
     }
-    public static ArrayList<Varaus> postVaraus(HashMap<String, String> params) {                                        // Lähettää varauksen tietokantaan annetuilla tiedoilla
-        /*TODO*/
-        return null;                                                                                                    // Palauttaa lisätyn varauksen
+    public static Varaus postVaraus(HashMap<String, String> params) {                                                   // Lähettää varauksen tietokantaan annetuilla tiedoilla
+        return VarausFunctions.postVaraus(params);                                                                      // Palauttaa lisätyn varauksen
     }
-    public static ArrayList<Varaus> updateVaraus(HashMap<String, String> params) {                                      // Päivittää annetut varauksen tiedot tietokantaan
-        /*TODO*/
-        return null;                                                                                                    // Palauttaa päivitetyn varauksen
+    public static Varaus updateVaraus(HashMap<String, String> params, String id) {                                      // Päivittää annetut varauksen tiedot tietokantaan
+        return VarausFunctions.putVaraus(params, id);                                                                   // Palauttaa päivitetyn varauksen
     }
-    public static ArrayList<Varaus> deletetVaraus(HashMap<String, String> params) {                                     // Poistaa mökit tetokannasta
-        /*TODO*/
-        return null;                                                                                                    // Palauttaa poistettujen varausten määrän.
+    public static String deleteVaraus(HashMap<String, String> params) {                                                 // Poistaa varauksen tetokannasta
+        return VarausFunctions.deleteVaraus(params);                                                                    // Palauttaa poistettujen varausten määrän.
     }
 
     // VARAUKSEN PALVELU
-    public static ArrayList<VarauksenPalvelu> getVarauksenPalvelu(HashMap<String, String> params) {                     // Palauttaa palvelut annetuilla parametreilla
-        return VarausFunctions.getVarauksenPalvelu(params);
+    public static ArrayList<VarauksenPalvelu> getVarauksenPalvelu(HashMap<String, String> params) {                     // Hakee parametreja vastaavat varauksen palvelut tietokannasta
+        return VarausFunctions.getVarauksenPalvelu(params);                                                             // Palauttaa listan varauksen palveluja
+    }
+    public static VarauksenPalvelu postVarauksenPalvelu(HashMap<String, String> params) {                               // Lähettää varauksen palvelun tietokantaan annetuilla tiedoilla
+        return VarausFunctions.postVarauksenPalvelu(params);                                                            // Palauttaa lisätyn varauksen palvelun
+    }
+    public static VarauksenPalvelu updateVarauksenPalvelu(HashMap<String, String> params, String varaus_id,
+                                                                                        String palvelu_id) {            // Päivittää annetut palvelun tiedot tietokantaan
+        return VarausFunctions.putVarauksenPalvelu(params, varaus_id, palvelu_id);                                      // Palauttaa päivitetyn palvelun
+    }
+    public static String deleteVarauksenPalvelu(HashMap<String, String> params) {                                       // Poistaa varauksen palvelun tetokannasta
+        return VarausFunctions.deleteVarauksenPalvelu(params);                                                          // Palauttaa poistettujen palveluiden määrän.
     }
 
     // PALVELU
-    public static ArrayList<Palvelu> getPalvelu(HashMap<String, String> params) {                                       // Palauttaa palvelut annetuilla parametreilla
-        return PalveluFunctions.getPalvelu(params);
+    public static ArrayList<Palvelu> getPalvelu(HashMap<String, String> params) {                                       // Hakee parametreja vastaavat palvelut tietokannasta
+        return PalveluFunctions.getPalvelu(params);                                                                     // Palauttaa listan palveluja
+    }
+    public static Palvelu postPalvelu(HashMap<String, String> params) {                                                 // Lähettää palvelun tietokantaan annetuilla tiedoilla
+        return PalveluFunctions.postPalvelu(params);                                                                    // Palauttaa lisätyn palvelun
+    }
+    public static Palvelu updatePalvelu(HashMap<String, String> params, String id) {                                    // Päivittää annetut palvelun tiedot tietokantaan
+        return PalveluFunctions.putPalvelu(params, id);                                                                 // Palauttaa päivitetyn palvelun
+    }
+    public static String deletePalvelu(HashMap<String, String> params) {                                                // Poistaa palvelun tetokannasta
+        return PalveluFunctions.deletePalvelu(params);                                                                  // Palauttaa poistettujen palveluiden määrän.
     }
 
     public static void main(String[] args) {
-        /*
+    /*
+        HashMap<String, String> palveluParams = new HashMap<>();
+        palveluParams.put("palvelu_id", "1");
+        System.out.println(getPalvelu(palveluParams));
+
+        HashMap<String, String> lisattavaPalvelu = new HashMap<>();
+        lisattavaPalvelu.put("palvelu_id", "17");
+        lisattavaPalvelu.put("alue_id", "3");
+        lisattavaPalvelu.put("nimi", "joku nimi");
+        lisattavaPalvelu.put("tyyppi", "2");
+        lisattavaPalvelu.put("kuvaus", "joku kuvaus");
+        lisattavaPalvelu.put("hinta", "11");
+        lisattavaPalvelu.put("alv", "22");
+
+        HashMap<String, String> muokattavaPalvelu = new HashMap<>();
+        muokattavaPalvelu.put("alue_id", "3");
+        muokattavaPalvelu.put("nimi", "joku päivitetty nimi");
+        muokattavaPalvelu.put("tyyppi", "2");
+        muokattavaPalvelu.put("kuvaus", "joku päivitetty kuvaus");
+        muokattavaPalvelu.put("hinta", "22");
+        muokattavaPalvelu.put("alv", "33");
+
+        HashMap<String, String> poistettavaPalvelu = new HashMap<>();
+        poistettavaPalvelu.put("palvelu_id", "17");
+
+        System.out.println(postPalvelu(lisattavaPalvelu));
+
+        System.out.println(updatePalvelu(muokattavaPalvelu, "17"));
+
+        System.out.println(deletePalvelu(poistettavaPalvelu));
+    */
+
+    /*
         HashMap<String, String> params = new HashMap<>();
         params.put("varaus_id", "1");
         Varaus varaus = getVaraus(params).get(0);
@@ -95,6 +145,20 @@ public class BackendAPI {
             System.out.println(x.getPalvelu());
         }
 
+        HashMap<String, String> lisattavaVaraus = new HashMap<>();
+        lisattavaVaraus.put("asiakas_id", "17");
+        lisattavaVaraus.put("mokki_mokki_id", "3");
+        lisattavaVaraus.put("varattu_pvm", LocalDateTime.now().toString());                                             // Puskee kantaan nykyisen Datetimen
+        lisattavaVaraus.put("varattu_alkupvm", LocalDateTime.now().toString());
+        lisattavaVaraus.put("varattu_loppupvm", LocalDateTime.now().toString());
+        Varaus lisattuVaraus = postVaraus(lisattavaVaraus);
+        System.out.println(lisattuVaraus);
+
+
+        System.out.println(LocalDateTime.now());
+    */
+
+    /*
         System.out.println(getAlue("13"));
 
         HashMap<String, String> params = new HashMap<>();
@@ -105,6 +169,18 @@ public class BackendAPI {
         System.out.println(postAlue(params));
 
         //System.out.println(deleteAlue(params));
-        */
+    */
+    /*
+        HashMap<String, String> uusipalvelu = new HashMap<>();
+        uusipalvelu.put("varaus_id", "2");
+        uusipalvelu.put("palvelu_id", "3");
+        //uusipalvelu.put("lkm", "1");
+
+        HashMap<String, String> uusipalvelutiedot = new HashMap<>();
+        uusipalvelutiedot.put("lkm", "3");
+
+        System.out.println(deleteVarauksenPalvelu(uusipalvelu));
+
+    */
     }
 }
