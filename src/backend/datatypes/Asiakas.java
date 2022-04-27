@@ -23,6 +23,7 @@ public class Asiakas {
         this.puhelinnro = puhelinnro;
     }
 
+    //Palauttaa postitoimipaikan. Jos ei ole, hakee sen postinumerolla
     public String getPostitoimipaikka() {
         if (this.postitoimipaikka == null) {
             this.postitoimipaikka = BackendAPI.getPosti(this.postinro);
@@ -60,6 +61,15 @@ public class Asiakas {
 
     @Override
     public String toString() {
-        return this.etunimi + " " + this.sukunimi + ", puh: " + this.puhelinnro;
+        return "Asiakas{" +
+                "asiakas_id='" + asiakas_id + '\'' +
+                ", postinro='" + postinro + '\'' +
+                ", postitoimipaikka='" + postitoimipaikka + '\'' +
+                ", etunimi='" + etunimi + '\'' +
+                ", sukunimi='" + sukunimi + '\'' +
+                ", lahiosoite='" + lahiosoite + '\'' +
+                ", email='" + email + '\'' +
+                ", puhelinnro='" + puhelinnro + '\'' +
+                '}';
     }
 }

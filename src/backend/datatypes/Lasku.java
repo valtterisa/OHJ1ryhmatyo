@@ -43,4 +43,20 @@ public class Lasku {
         }
         return varaus;
     }
+
+    public void generateLasku() {
+        /*TODO
+        *  -Tähän joku tapa, miten laskun saa nättiin muotoon vaikkapa tulostusta varten*/
+    }
+
+    @Override
+    public String toString() {
+        return "Lasku{" +
+                "lasku_id='" + lasku_id + '\'' +
+                ", varaus_id='" + varaus_id + '\'' +
+                ", varaus=" + varaus +
+                ", summa='" + summa + '\'' +
+                ", alv='" + alv + '\'' +
+                '}';
+    }
 }

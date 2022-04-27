@@ -29,6 +29,7 @@ public class VarauksenPalvelu {
         return lkm;
     }
 
+    //Palauttaa Palvelu-olion. Jos ei ole, hakee sen palvelu_id:llä
     public Palvelu getPalvelu() {
         if (this.palvelu == null) {
             HashMap<String, String> params = new HashMap<>();

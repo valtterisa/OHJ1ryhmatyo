@@ -64,6 +64,7 @@ public class Mokki {
         return varustelu;
     }
 
+    //Palauttaa alueen. Jos ei ole, hakee sen alue_id:llä
     public String getAlue() {
         if (this.alue == null) {
             this.alue = BackendAPI.getAlue(this.alue_id);
@@ -71,6 +72,7 @@ public class Mokki {
         return alue;
     }
 
+    //Palauttaa postitoimipaikan. Jos ei ole, hakee sen postinumerolla
     public String getPostitoimipaikka() {
         if (this.postitoimipaikka == null) {
             this.postitoimipaikka = BackendAPI.getPosti(this.postinro);
@@ -80,6 +82,18 @@ public class Mokki {
 
     @Override
     public String toString() {
-        return this.mokkinimi + ", " + this.kuvaus;
+        return "Mokki{" +
+                "mokki_id='" + mokki_id + '\'' +
+                ", alue_id='" + alue_id + '\'' +
+                ", alue='" + alue + '\'' +
+                ", postinro='" + postinro + '\'' +
+                ", postitoimipaikka='" + postitoimipaikka + '\'' +
+                ", mokkinimi='" + mokkinimi + '\'' +
+                ", katuosoite='" + katuosoite + '\'' +
+                ", hinta='" + hinta + '\'' +
+                ", kuvaus='" + kuvaus + '\'' +
+                ", henkilomaara='" + henkilomaara + '\'' +
+                ", varustelu='" + varustelu + '\'' +
+                '}';
     }
 }

@@ -51,6 +51,7 @@ public class Palvelu {
         return alv;
     }
 
+    //Palauttaa alueen. Jos ei ole, hakee sen alue_id:llä
     public String getAlue() {
         if (this.alue == null) {
             this.alue = BackendAPI.getAlue(this.alue_id);

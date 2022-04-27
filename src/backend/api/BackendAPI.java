@@ -100,6 +100,13 @@ public class BackendAPI {
         return PalveluFunctions.deletePalvelu(params);                                                                  // Palauttaa poistettujen palveluiden määrän.
     }
 
+    // LASKU
+    /* TODO
+    *   -Tähän frontendille näkyvät funktiot laskujen hallinnointiin.
+    *   -Laskun paperisen / s.posti -version generoinnin voisi toteuttaa Lasku-luokan sisällä
+    *    jonkinlaisella generateLasku() -metodilla?
+    */
+
     public static void main(String[] args) {
     /*
         HashMap<String, String> palveluParams = new HashMap<>();
