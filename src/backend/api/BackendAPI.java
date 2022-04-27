@@ -17,12 +17,10 @@ public class BackendAPI {
         return AsiakasFunctions.postAsiakas(params);                                                                    // Palauttaa lisätyn asiakkaan
     }
     public static Asiakas updateAsiakas(HashMap<String, String> params, String id) {                                    // Päivittää annetut asiakkaan tiedot tietokantaan
-        /* TODO */                                                                                                      // Palauttaa muokatun asiakkaan
-        return null;
+        return AsiakasFunctions.putAsiakas(params, id);                                                                 // Palauttaa muokatun asiakkaan
     }
     public static String deleteAsiakas(HashMap<String, String> params) {                                                // Lähettää asiakkaan tietokantaan annetuilla tiedoilla
-        /* TODO */                                                                                                      // Palauttaa poistettujen asiakkaiden määrän
-        return null;
+        return AsiakasFunctions.deleteAsiakas(params);                                                                  // Palauttaa poistettujen asiakkaiden määrän
     }
 
 
@@ -134,7 +132,6 @@ public class BackendAPI {
 
         System.out.println(deletePalvelu(poistettavaPalvelu));
     */
-
     /*
         HashMap<String, String> params = new HashMap<>();
         params.put("varaus_id", "1");
@@ -180,6 +177,24 @@ public class BackendAPI {
         uusipalvelutiedot.put("lkm", "3");
 
         System.out.println(deleteVarauksenPalvelu(uusipalvelu));
+
+    */
+    /*
+        HashMap<String, String> uusiMokki = new HashMap<>();
+        uusiMokki.put("alue_id", "2");
+        uusiMokki.put("postinro", "18890");
+        uusiMokki.put("mokkinimi", "joku nimi");
+        uusiMokki.put("katuosoite", "joku osoite");
+        uusiMokki.put("kuvaus", "joku kuvaus");
+        uusiMokki.put("hinta", "3000");
+
+        HashMap<String, String> uusiHinta = new HashMap<>();
+        uusiHinta.put("hinta", "3000");
+
+        //System.out.println(getMokki(new HashMap<>()));
+        //System.out.println(postMokki(uusiMokki));
+        //System.out.println(updateMokki(uusiHinta, "6"));
+        System.out.println(deleteMokki(uusiMokki));
 
     */
     }
