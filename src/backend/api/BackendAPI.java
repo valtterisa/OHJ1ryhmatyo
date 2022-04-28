@@ -9,6 +9,17 @@ import java.util.HashMap;
 
 public class BackendAPI {
 
+    // NÄKYMÄT?
+    public static ArrayList<Mokki> getMokitAlueillaTAI_JOTAIN_VASTAAVAA() {
+        /*
+        * TODO
+        *  @Valtterisa
+        *  BackendAPI -luokkaan kans vaikka funktion/funktioita,
+        *  joka kutsuu niitä tietokantanäkymiä.
+        * */
+        return null;
+    }
+
     // ASIAKAS
     public static ArrayList<Asiakas> getAsiakas(HashMap<String, String> params) {                                       // Hakee parametreja vastaavat asiakkaat tietokannasta
         return AsiakasFunctions.getAsiakas(params);                                                                     // Palauttaa listan asiakkaita
