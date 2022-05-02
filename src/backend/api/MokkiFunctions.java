@@ -44,6 +44,7 @@ public class MokkiFunctions {
         return response.get(0).get(1);
     }
 
+    // GENEROI MÖKIN ANNETUSTA DATASTA
     public static ArrayList<Mokki> generateMokki(ArrayList<ArrayList<String>> data) {
         ArrayList<Mokki> mokkiList = new ArrayList<>();
         System.out.println("Generating objects from received data...");

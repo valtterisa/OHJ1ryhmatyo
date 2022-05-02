@@ -41,6 +41,7 @@ public class AsiakasFunctions {
         return response.get(0).get(1);
     }
 
+    // GENEROI ASIAKKAAN ANNETUSTA DATASTA
     public static ArrayList<Asiakas> generateAsiakas(ArrayList<ArrayList<String>> data) {
         System.out.println("Generating objects from received data...");
         ArrayList<Asiakas> asiakasList = new ArrayList<Asiakas>();

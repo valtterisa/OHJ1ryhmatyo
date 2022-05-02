@@ -41,6 +41,7 @@ public class PalveluFunctions {
         return response.get(0).get(1);
     }
 
+    // GENEROI PALVELUN ANNETUSTA DATASTA
     public static ArrayList<Palvelu> generatePalvelu(ArrayList<ArrayList<String>> data) {                               // Muuntaa kaksiuloitteiden listan listaksi palveluja
         System.out.println("Generating objects from received data...");
         ArrayList<Palvelu> palveluList = new ArrayList<>();

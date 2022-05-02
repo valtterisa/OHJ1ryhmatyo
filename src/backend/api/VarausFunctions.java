@@ -99,6 +99,7 @@ public class VarausFunctions {
         return response.get(0).get(1);
     }
 
+    // GENEROI VARAUKSEN ANNETUSTA DATASTA
     public static ArrayList<Varaus> generateVaraus(ArrayList<ArrayList<String>> data) {
         System.out.println("Generating objects from received data...");
         ArrayList<Varaus> varausList = new ArrayList<>();
@@ -109,6 +110,7 @@ public class VarausFunctions {
         return varausList;
     }
 
+    // GENEROI VARAUKSEN PALVELUN ANNETUSTA DATASTA
     public static ArrayList<VarauksenPalvelu> generateVarauksenPalvelu(ArrayList<ArrayList<String>> data) {
         System.out.println("Generating objects from received data...");
         ArrayList<VarauksenPalvelu> varauspalveluList = new ArrayList<>();
