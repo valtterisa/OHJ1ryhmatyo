@@ -1,5 +1,6 @@
 package src.backend.api;
 
+import src.backend.DatabaseConnection;
 import src.backend.datatypes.*;
 
 import java.time.LocalDateTime;
@@ -9,16 +10,43 @@ import java.util.HashMap;
 
 public class BackendAPI {
 
-    // NÄKYMÄT?
-    public static ArrayList<Mokki> getMokitAlueillaTAI_JOTAIN_VASTAAVAA() {
-        /*
-        * TODO
-        *  @Valtterisa
-        *  BackendAPI -luokkaan kans vaikka funktion/funktioita,
-        *  joka kutsuu niitä tietokantanäkymiä.
-        * */
-        return null;
+    // NÄKYMIÄ
+
+    /**
+     * Metodi hakee tietokannasta ennalta luodun näkymän, joka
+     * näyttää mitkä asiakkaat ovat varanneet mökin.
+     * @return Palauttaa kaksiulotteisen listan asiakkaista, joilla
+     * on mökkivaraus
+     */
+
+    static DatabaseConnection db = new DatabaseConnection();
+
+    public static ArrayList<ArrayList<String>> AsiakkaatJoillaVaraus() {
+
+        ArrayList<ArrayList<String>> listaVarauksista = db.doSQL("get", "customersWithReservation");
+        
+        for (ArrayList<String> tiedot : listaVarauksista) {
+            
+        }
+
+        return listaVarauksista;
     }
+
+    /**
+     * Metodi hakee tietokannasta ennalta luodun näkymän, joka
+     * näyttää asiakkaat postinumeron mukaan
+     * @return Palauttaa kaksiulotteisen listan kaikista asiakkaista 
+     * postinumeron mukaan.
+     */
+
+    public static ArrayList<ArrayList<String>> AsiakkaatPostinumeronMukaan() {
+
+        ArrayList<ArrayList<String>> listaAsiakkaista = db.doSQL("get", "customersByPostnumber");
+
+        return listaAsiakkaista;
+
+    }
+
 
     // ASIAKAS
     public static ArrayList<Asiakas> getAsiakas(HashMap<String, String> params) {                                       // Hakee parametreja vastaavat asiakkaat tietokannasta
@@ -215,5 +243,7 @@ public class BackendAPI {
         System.out.println(deleteMokki(uusiMokki));
 
     */
+    System.out.println(AsiakkaatJoillaVaraus());
+        
     }
 }
