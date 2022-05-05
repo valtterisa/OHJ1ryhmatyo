@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
-public class DatabaseConnection {
+public class   DatabaseConnection {
 
     // vakioita tietokantayhteyttä varten
     private static final String DATABASE_DRIVER = "com.mysql.cj.jdbc.Driver";
