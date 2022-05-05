@@ -89,6 +89,11 @@ public class BackendAPI {
     public static String deleteVaraus(HashMap<String, String> params) {                                                 // Poistaa varauksen tetokannasta
         return VarausFunctions.deleteVaraus(params);                                                                    // Palauttaa poistettujen varausten määrän.
     }
+    public static ArrayList<Varaus> getVarausTiedoilla(HashMap<String, String> varausParams,
+                                                       HashMap<String, String> mokkiParams,                             // Hakee parametreja vastaavat varaukset tietokannasta
+                                                       HashMap<String, String> asiakasParams) {
+        return VarausFunctions.getVarausTiedoilla(varausParams, mokkiParams, asiakasParams);                            // Palauttaa listan varauksia
+    }
 
     // VARAUKSEN PALVELU
     public static ArrayList<VarauksenPalvelu> getVarauksenPalvelu(HashMap<String, String> params) {                     // Hakee parametreja vastaavat varauksen palvelut tietokannasta
@@ -127,6 +132,18 @@ public class BackendAPI {
     */
 
     public static void main(String[] args) {
+/*
+        HashMap<String, String> varausParams = new HashMap<>();
+        //varausParams.put("alue_id", "9");
+
+        HashMap<String, String> mokkiParams = new HashMap<>();
+        mokkiParams.put("alue_id", "9");
+
+        HashMap<String, String> asiakasParams = new HashMap<>();
+        asiakasParams.put("postinro", "37148");
+
+        System.out.println(VarausFunctions.getVarausTiedoilla(varausParams, mokkiParams, asiakasParams));
+*/
     /*
         HashMap<String, String> palveluParams = new HashMap<>();
         palveluParams.put("palvelu_id", "1");
@@ -223,7 +240,7 @@ public class BackendAPI {
         System.out.println(deleteMokki(uusiMokki));
 
     */
-    System.out.println(AsiakkaatJoillaVaraus());
+    //System.out.println(AsiakkaatJoillaVaraus());
         
     }
 }

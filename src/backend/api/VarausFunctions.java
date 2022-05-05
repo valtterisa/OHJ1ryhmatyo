@@ -1,10 +1,13 @@
 package src.backend.api;
 
 import src.backend.DatabaseConnection;
+import src.backend.datatypes.Asiakas;
+import src.backend.datatypes.Mokki;
 import src.backend.datatypes.VarauksenPalvelu;
 import src.backend.datatypes.Varaus;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class VarausFunctions {
@@ -51,20 +54,25 @@ public class VarausFunctions {
         return response.get(0).get(1);
     }
 
-    public static ArrayList<Varaus> getVarausTiedoilla(HashMap<String, String> params) {
-        ArrayList<Varaus> varausList = getVaraus(params);
+    public static ArrayList<Varaus> getVarausTiedoilla(HashMap<String, String> varausParams, HashMap<String, String> mokkiParams, HashMap<String, String> asiakasParams) {
+        ArrayList<Varaus> varausList = getVaraus(varausParams);
+        ArrayList<Varaus> returnVarausList = new ArrayList<>();
         for (Varaus x : varausList) {
-            HashMap<String, String> asiakasParam = new HashMap<>();
-            asiakasParam.put("asiakas_id", x.getAsiakas_id());
+            asiakasParams.put("asiakas_id", x.getAsiakas_id());
 
-            HashMap<String, String> mokkiParam = new HashMap<>();
-            mokkiParam.put("mokki_id", x.getMokki_mokki_id());
+            mokkiParams.put("mokki_id", x.getMokki_mokki_id());
 
-            x.setAsiakas(AsiakasFunctions.getAsiakas(asiakasParam).get(0));
-            x.setMokki(MokkiFunctions.getMokki(mokkiParam).get(0));
+            ArrayList<Asiakas> asiakasList = AsiakasFunctions.getAsiakas(asiakasParams);
+            ArrayList<Mokki> mokkiList = MokkiFunctions.getMokki(mokkiParams);
+
+            if (asiakasList.size() > 0 && mokkiList.size() > 0) {
+                x.setAsiakas(asiakasList.get(0));
+                x.setMokki(mokkiList.get(0));
+                returnVarausList.add(x);
+            }
         }
 
-        return varausList;
+        return returnVarausList;
     }
 
     public static ArrayList<VarauksenPalvelu> getVarauksenPalvelu(HashMap<String, String> params) {
