@@ -14,39 +14,19 @@ public class BackendAPI {
 
     /**
      * Metodi hakee tietokannasta ennalta luodun näkymän, joka
-     * näyttää mitkä asiakkaat ovat varanneet mökin.
-     * @return Palauttaa kaksiulotteisen listan asiakkaista, joilla
-     * on mökkivaraus
+     * näyttää mitkä asiakkaat ovat varanneet mökin. Asiakkaat laitetaan
+     * omiin olioihinsa.
+     * @return Palauttaa listan asiakasolioita, jotka ovat varanneet mökin
      */
 
     static DatabaseConnection db = new DatabaseConnection();
 
-    public static ArrayList<ArrayList<String>> AsiakkaatJoillaVaraus() {
+    public static ArrayList<Asiakas> AsiakkaatJoillaVaraus() {
 
         ArrayList<ArrayList<String>> listaVarauksista = db.doSQL("get", "customersWithReservation");
-        
-        for (ArrayList<String> tiedot : listaVarauksista) {
-            
-        }
 
-        return listaVarauksista;
+        return AsiakasFunctions.generateAsiakas(listaVarauksista);
     }
-
-    /**
-     * Metodi hakee tietokannasta ennalta luodun näkymän, joka
-     * näyttää asiakkaat postinumeron mukaan
-     * @return Palauttaa kaksiulotteisen listan kaikista asiakkaista 
-     * postinumeron mukaan.
-     */
-
-    public static ArrayList<ArrayList<String>> AsiakkaatPostinumeronMukaan() {
-
-        ArrayList<ArrayList<String>> listaAsiakkaista = db.doSQL("get", "customersByPostnumber");
-
-        return listaAsiakkaista;
-
-    }
-
 
     // ASIAKAS
     public static ArrayList<Asiakas> getAsiakas(HashMap<String, String> params) {                                       // Hakee parametreja vastaavat asiakkaat tietokannasta
