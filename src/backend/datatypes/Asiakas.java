@@ -2,6 +2,9 @@ package src.backend.datatypes;
 
 import src.backend.api.BackendAPI;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class Asiakas {
 
     private String asiakas_id;
@@ -12,6 +15,8 @@ public class Asiakas {
     private String lahiosoite;
     private String email;
     private String puhelinnro;
+
+    private ArrayList<Varaus> varaukset;
 
     public Asiakas (String asiakas_id, String postinro, String etunimi, String sukunimi, String lahiosoite, String email, String puhelinnro) {
         this.asiakas_id = asiakas_id;
@@ -29,6 +34,15 @@ public class Asiakas {
             this.postitoimipaikka = BackendAPI.getPosti(this.postinro);
         }
         return this.postitoimipaikka;
+    }
+
+    public ArrayList<Varaus> getVaraukset() {
+        if (this.varaukset == null) {
+            HashMap<String, String> params = new HashMap();
+            params.put("asiakas_id", this.asiakas_id);
+            this.varaukset = BackendAPI.getVaraus(params);
+        }
+        return this.varaukset;
     }
 
     public String getAsiakas_id() {
