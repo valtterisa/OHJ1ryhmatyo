@@ -132,18 +132,20 @@ public class BackendAPI {
     */
 
     public static void main(String[] args) {
-/*
+
         HashMap<String, String> varausParams = new HashMap<>();
         //varausParams.put("alue_id", "9");
 
         HashMap<String, String> mokkiParams = new HashMap<>();
-        mokkiParams.put("alue_id", "9");
+        //mokkiParams.put("alue_id", "9");
+        //mokkiParams.put("mokkinimi", "in");
+        mokkiParams.put("mokki_id", "2");
 
         HashMap<String, String> asiakasParams = new HashMap<>();
-        asiakasParams.put("postinro", "37148");
+        //asiakasParams.put("sukunimi", "surname");
 
         System.out.println(VarausFunctions.getVarausTiedoilla(varausParams, mokkiParams, asiakasParams));
-*/
+
     /*
         HashMap<String, String> palveluParams = new HashMap<>();
         palveluParams.put("palvelu_id", "1");
