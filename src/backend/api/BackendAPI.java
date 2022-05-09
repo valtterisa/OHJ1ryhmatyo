@@ -62,18 +62,23 @@ public class BackendAPI {
         return PostiFunctions.getPosti(postinro);                                                                       // Palauttaa postitoimipaikan merkkijonona
     }
 
-    // ALUE
+    // ALUE String
     public static String getAlue(String alue_id) {                                                                      // Hakee alueen nimen id:n avulla
         return AlueFunctions.getAlue(alue_id);                                                                          // Palauttaa alueen nimen merkkkijonona
     }
-    public static String postAlue(HashMap<String, String> params) {                                                     // Lähettää alueen tietokantaan annetuilla tiedoilla
-    return AlueFunctions.postAlue(params);                                                                              // Palauttaa lisätyn alueen id:n
+    public static Alue postAlue(HashMap<String, String> params) {                                                     // Lähettää alueen tietokantaan annetuilla tiedoilla
+        return AlueFunctions.postAlue(params);                                                                          // Palauttaa lisätyn alueen id:n
     }
-    public static String updateAlue(HashMap<String, String> params, String id) {                                        // Päivittää annetut alueen tiedot tietokantaan
+    public static Alue updateAlue(HashMap<String, String> params, String id) {                                          // Päivittää annetut alueen tiedot tietokantaan
         return AlueFunctions.putAlue(params, id);                                                                       // Palauttaa muokatun alueen nimen
     }
     public static String deleteAlue(HashMap<String, String> params) {                                                   // Poistaa alueet tetokannasta
         return AlueFunctions.deleteAlue(params);                                                                        // Palauttaa poistettujen alueiden määrän
+    }
+
+    // ALUE OBJECT
+    public static ArrayList<Alue> getAlue(HashMap<String, String> params) {                                             // Hakee alueen nimen id:n avulla
+        return AlueFunctions.getAlue(params);                                                                           // Palauttaa alueen nimen merkkkijonona
     }
 
     // VARAUS
