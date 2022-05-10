@@ -12,6 +12,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import src.frontend.Sivu4.YleisNakyma;
 
 
 public class Sivut extends Application {
@@ -40,10 +41,10 @@ public class Sivut extends Application {
         SCENE1 = EnsimmainenSivu();
         SCENE2 = ToinenSivu();
         SCENE3 = KolmasSivu();
-        SCENE4 = NeljasSivu();
+        SCENE4 = NeljasSivu(paaIkkuna);
 
         paaIkkuna.setTitle("Mökkien varausjärjestelmä");
-        paaIkkuna.setScene(SCENE1);
+        paaIkkuna.setScene(SCENE4);
         paaIkkuna.show();
     }
     private Scene EnsimmainenSivu() {
@@ -106,12 +107,13 @@ public class Sivut extends Application {
         return SCENE3;
     }
 
-    private Scene NeljasSivu() {
-        GridPane paneeli4 = new GridPane();  //Luodaan paneeli ensimmäiselle sivulle ja määritellään se
+    private Scene NeljasSivu(Stage stage) {
+        YleisNakyma paneeli4 = new YleisNakyma(stage);
+        //GridPane paneeli4 = new GridPane();  //Luodaan paneeli ensimmäiselle sivulle ja määritellään se
         paneeli4.setMinSize(200, 200);
-        paneeli4.setAlignment(Pos.TOP_CENTER);
-        paneeli4.setHgap(10);
-        paneeli4.setVgap(20);
+        //paneeli4.setAlignment(Pos.TOP_CENTER);
+        //paneeli4.setHgap(10);
+        //paneeli4.setVgap(20);
 
         SCENE4 = new Scene(paneeli4, 600,400);
         return SCENE4;
