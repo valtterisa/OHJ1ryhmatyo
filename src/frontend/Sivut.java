@@ -1,18 +1,24 @@
 package src.frontend;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import javafx.application.Application;
 import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.util.Callback;
+import javafx.util.StringConverter;
 import src.frontend.ObjectUI.YleisNakyma;
+import javafx.scene.control.DatePicker;
 
 
 public class Sivut extends Application {
@@ -44,36 +50,99 @@ public class Sivut extends Application {
         SCENE4 = NeljasSivu(paaIkkuna);
 
         paaIkkuna.setTitle("Mökkien varausjärjestelmä");
-        paaIkkuna.setScene(SCENE4);
+        paaIkkuna.setScene(SCENE1);
         paaIkkuna.show();
     }
     private Scene EnsimmainenSivu() {
-        GridPane paneeli = new GridPane();  //Luodaan paneeli ensimmäiselle sivulle ja määritellään se
+
+        DatePicker checkInDatePicker = new DatePicker();
+        DatePicker checkOutDatePicker = new DatePicker();
+
+        final String pattern = "YYYY-MM-dd";
+
+        // varauksen aikaformaatin muuttaminen
+        StringConverter<LocalDate> converter = new StringConverter<LocalDate>() {
+            DateTimeFormatter dateFormatter = 
+                DateTimeFormatter.ofPattern(pattern);
+            @Override
+            public String toString(LocalDate date) {
+                if (date != null) {
+                    return dateFormatter.format(date);
+                } else {
+                    return "";
+                }
+            }
+            @Override
+            public LocalDate fromString(String string) {
+                if (string != null && !string.isEmpty()) {
+                    return LocalDate.parse(string, dateFormatter);
+                } else {
+                    return null;
+                }
+            }
+        };             
+        checkInDatePicker.setConverter(converter);
+        checkInDatePicker.setPromptText(pattern.toLowerCase());
+        
+        // varauksen ajankohdan valinta
+        checkInDatePicker.setValue(LocalDate.now());
+        final Callback<DatePicker, DateCell> dayCellFactory = 
+            new Callback<DatePicker, DateCell>() {
+                @Override
+                public DateCell call(final DatePicker datePicker) {
+                    return new DateCell() {
+                        @Override
+                        public void updateItem(LocalDate item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (item.isBefore(
+                                    checkInDatePicker.getValue().plusDays(1))
+                                ) {
+                                    setDisable(true);
+                                    setStyle("-fx-background-color: lightgrey;");
+                            }
+                    }
+                };
+            }
+        };
+        checkOutDatePicker.setDayCellFactory(dayCellFactory);
+        checkOutDatePicker.setValue(checkInDatePicker.getValue().plusDays(1));
+
+        HBox paneeli = new HBox(5);  //Luodaan paneeli ensimmäiselle sivulle ja määritellään se
         paneeli.setMinSize(200, 200);
         paneeli.setAlignment(Pos.TOP_CENTER);
-        paneeli.setHgap(10);
-        paneeli.setVgap(20);
+        paneeli.setPadding(new Insets(5,0,0,0));
 
+        /*
         Label tervetuloa = new Label("Mokin varausjärjestelmä");     //Otsikko ja sen määrittely.
         tervetuloa.setFont(Font.font("Calibri", FontWeight.BOLD, 20));
-        paneeli.add(tervetuloa, 1,0);
+        paneeli.getChildren().add(tervetuloa);
+        */
 
-        Label logo = new Label("logo");
-        paneeli.add(logo,0,0);
+        ComboBox<String> location = new ComboBox<String>();
+        location.setPromptText("Valitse mökin sijainti");
+        
+        // haetaan paikkakunnat BackendAPI:sta
+        // miten saisi kaikki paikkakunnat vaan??
 
-        TextField teksti1 = new TextField();
-        paneeli.add(teksti1,0,1);
-        teksti1.setPrefWidth(10);
+        paneeli.getChildren().add(location);
 
+        // check-in
+        Label from = new Label("Mistä");
+        from.setPadding(new Insets(5,0,0,0));
+        paneeli.getChildren().addAll(from,checkInDatePicker);
 
-        TextField teksti2 = new TextField();
-        paneeli.add(teksti2,1,1);
+        // check-out
+        Label to = new Label("Mihin");
+        to.setPadding(new Insets(5,0,0,0));
+        paneeli.getChildren().addAll(to,checkOutDatePicker);
 
-        TextField teksti3 = new TextField();
-        paneeli.add(teksti3,2,1);
+        Button searchButton = new Button("Haku");
+        paneeli.getChildren().add(searchButton);
 
-        Button teksti4 = new Button("Haku");
-        paneeli.add(teksti4,3,1);
+        searchButton.setOnAction(e -> {
+            System.out.println("check-in " + checkInDatePicker.getValue());
+            System.out.println("check-out " + checkOutDatePicker.getValue());
+        });
 
         GridPane aa = new GridPane();
         GridPane.setHalignment(aa, HPos.CENTER);
@@ -81,7 +150,7 @@ public class Sivut extends Application {
         aa.setGridLinesVisible(true);
         paneeli.getChildren().add(aa);
 
-        SCENE1 = new Scene(paneeli, 600,400);
+        SCENE1 = new Scene(paneeli, 700,400);
         return SCENE1;
     }
 
