@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import src.frontend.ObjectUI.AlueHallinta.AlueHallintaNakyma;
+import src.frontend.ObjectUI.AsiakasHallinta.AsiakasHallintaNakyma;
 import src.frontend.ObjectUI.MokkiHallinta.MokkiHallintaNakyma;
 import src.frontend.ObjectUI.PalveluHallinta.PalveluHallintaNakyma;
 import src.frontend.ObjectUI.VarausHallinta.VarausHallintaNakyma;
@@ -17,6 +18,7 @@ public class NavBar extends HBox {
     private Button alueidenHallintaNakymaButton;
     private Button varaustenHallintaNakymaButton;
     private Button palveluidenHallintaNakymaButton;
+    private Button asiakasHallintaNakymaButton;
 
     private Stage stage;
 
@@ -30,10 +32,11 @@ public class NavBar extends HBox {
         this.alueidenHallintaNakymaButton = new Button("Alueiden hallinta");
         this.varaustenHallintaNakymaButton = new Button("Varausten hallinta");
         this.palveluidenHallintaNakymaButton = new Button("Palveluiden hallinta");
+        this.asiakasHallintaNakymaButton = new Button("Asiakkaiden hallinta");
 
         this.setSpacing(10);
 
-        this.getChildren().addAll(yleisnakymaButton, mokkiHallintaNakymaButton, alueidenHallintaNakymaButton, varaustenHallintaNakymaButton, palveluidenHallintaNakymaButton);
+        this.getChildren().addAll(yleisnakymaButton, mokkiHallintaNakymaButton, alueidenHallintaNakymaButton, varaustenHallintaNakymaButton, palveluidenHallintaNakymaButton, asiakasHallintaNakymaButton);
 
         generateActions();
     }
@@ -58,6 +61,10 @@ public class NavBar extends HBox {
         palveluidenHallintaNakymaButton.setOnAction(e-> {
             stage.setScene(new Scene(new PalveluHallintaNakyma(stage), stage.getScene().getWidth(), stage.getScene().getHeight()));
             stage.setTitle("Palveluiden hallinta");
+        });
+        asiakasHallintaNakymaButton.setOnAction(e -> {
+            stage.setScene(new Scene(new AsiakasHallintaNakyma(stage), stage.getScene().getWidth(), stage.getScene().getHeight()));
+            stage.setTitle("Asiakkaiden hallinta");
         });
     }
 }
