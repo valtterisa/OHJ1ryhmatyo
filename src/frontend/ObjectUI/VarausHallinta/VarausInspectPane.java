@@ -11,9 +11,7 @@ import src.backend.datatypes.Asiakas;
 import src.backend.datatypes.Mokki;
 import src.backend.datatypes.VarauksenPalvelu;
 import src.backend.datatypes.Varaus;
-import src.frontend.ObjectUI.MokkiHallinta.MokkiDeleteNakyma;
-import src.frontend.ObjectUI.MokkiHallinta.MokkiEditNakyma;
-import src.frontend.ObjectUI.MokkiHallinta.MokkiHallintaNakyma;
+import src.frontend.ObjectUI.VarausHallinta.VarausPalveluHallinta.VarausEditPalveluNakyma;
 
 import java.util.ArrayList;
 
@@ -23,12 +21,14 @@ public class VarausInspectPane extends VBox {
     private Button editButton;
     private Button closeButton;
     private Button deleteButton;
+    private Button serviceButton;
 
     public VarausInspectPane(Varaus selectedItem) {
         this.selectedVaraus = selectedItem;
         this.editButton = new Button("Muokkaa valittua varausta");
         this.closeButton = new Button("X");
         this.deleteButton = new Button("Poista valittu varaus");
+        this.serviceButton = new Button("Hallinnoi palveluja");
 
         generateActions();
         construct();
@@ -57,6 +57,14 @@ public class VarausInspectPane extends VBox {
             this.getChildren().removeAll(this.getChildren());
             VarausHallintaNakyma parent = (VarausHallintaNakyma) this.getParent();
             parent.getTable().getSelectionModel().clearSelection();
+        });
+        this.serviceButton.setOnAction(e -> {
+            Stage editServiceWindow = new Stage();
+            Scene editServiceScene = new Scene(new VarausEditPalveluNakyma(this.selectedVaraus, editServiceWindow, (VarausHallintaNakyma) this.getParent()));
+            editServiceWindow.setScene(editServiceScene);
+            editServiceWindow.setTitle("Hallinnoidaan varauksen: id = " + this.selectedVaraus.getVaraus_id() + " palveluita");
+
+            editServiceWindow.show();
         });
     }
 
@@ -142,7 +150,7 @@ public class VarausInspectPane extends VBox {
             mokkiInfo.getChildren().add(mokkiAddress);
             mokkiInfo.getChildren().add(mokkiPostal);
 
-            this.getChildren().addAll(varausInfo, asiakasInfo, mokkiInfo, editButton, deleteButton, closeButton);
+            this.getChildren().addAll(varausInfo, asiakasInfo, mokkiInfo, editButton, deleteButton, serviceButton, closeButton);
         }
     }
 
