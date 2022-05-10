@@ -124,6 +124,7 @@ public class Sivut extends Application {
         // TODO
         // paikkakuntien haku comboboksiin
         // tieto hashmappiin ja haku kannasta tietojen täsmätessä
+        // metodeihin pilkkominen
 
         paneeli.getChildren().add(location);
 
