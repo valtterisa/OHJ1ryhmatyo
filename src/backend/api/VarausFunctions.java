@@ -67,8 +67,8 @@ public class VarausFunctions {
                 changingMokkiParameters.put("mokki_id", x.getMokki_mokki_id());
             }
 
-            if (!asiakasParams.containsKey("mokki_id")) {
-                changingAsiakasParameters.put("Asiakas_id", x.getAsiakas_id());
+            if (!asiakasParams.containsKey("asiakas_id")) {
+                changingAsiakasParameters.put("asiakas_id", x.getAsiakas_id());
             }
 
             ArrayList<Asiakas> asiakasList = AsiakasFunctions.getAsiakas(changingAsiakasParameters);

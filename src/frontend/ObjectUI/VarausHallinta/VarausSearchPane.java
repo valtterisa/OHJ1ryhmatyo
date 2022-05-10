@@ -127,7 +127,7 @@ public class VarausSearchPane extends VBox {
         String email = asiakasEmailTF.getText();
 
         if (asiakasId.length() > 0) {
-            asiakasParams.put("asiakas_id", etunimi);
+            asiakasParams.put("asiakas_id", asiakasId);
         }
         if (etunimi.length() > 0) {
             asiakasParams.put("etunimi", etunimi);
