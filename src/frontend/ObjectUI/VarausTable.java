@@ -13,17 +13,17 @@ public class VarausTable extends TableView<Varaus> {
     public VarausTable () {
         TableColumn<Varaus, Number> col1 = new TableColumn<>("mökin id");
         TableColumn<Varaus, String> col2 = new TableColumn<>("mökin nimi");
-        TableColumn<Varaus, String> col3 = new TableColumn<>("etunimi");
-        TableColumn<Varaus, String> col4 = new TableColumn<>("sukunimi");
-        TableColumn<Varaus, String> col5 = new TableColumn<>("puhelinnro");
-        TableColumn<Varaus, String> col6 = new TableColumn<>("sähköposti");
+        TableColumn<Varaus, String> col3 = new TableColumn<>("Sijainti");
+        TableColumn<Varaus, String> col4 = new TableColumn<>("Varaaja");
+        TableColumn<Varaus, String> col5 = new TableColumn<>("lähtö");
+        TableColumn<Varaus, String> col6 = new TableColumn<>("puhelinnro");
 
         col1.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getMokki().getMokki_id()));
         col2.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMokki().getMokkinimi()));
-        col3.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAsiakas().getEtunimi()));
-        col4.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAsiakas().getSukunimi()));
-        col5.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAsiakas().getPuhelinnro()));
-        col6.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAsiakas().getEmail()));
+        col3.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMokki().getAlue()));
+        col4.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAsiakas().getEtunimi() + " " + cellData.getValue().getAsiakas().getSukunimi()));
+        col5.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getVarattu_loppupvm()));
+        col6.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAsiakas().getPuhelinnro()));
 
         this.getColumns().add(col1);
         this.getColumns().add(col2);
@@ -31,6 +31,7 @@ public class VarausTable extends TableView<Varaus> {
         this.getColumns().add(col4);
         this.getColumns().add(col5);
         this.getColumns().add(col6);
+
 
         this.generateActions();
     }

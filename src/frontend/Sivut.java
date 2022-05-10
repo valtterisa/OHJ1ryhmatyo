@@ -12,7 +12,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import src.frontend.Sivu4.YleisNakyma;
+import src.frontend.ObjectUI.YleisNakyma;
 
 
 public class Sivut extends Application {
