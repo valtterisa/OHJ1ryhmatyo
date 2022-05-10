@@ -2,6 +2,8 @@ package src.frontend;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+
 import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -17,6 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
+import src.backend.api.BackendAPI;
 import src.frontend.ObjectUI.YleisNakyma;
 import javafx.scene.control.DatePicker;
 
@@ -121,8 +124,31 @@ public class Sivut extends Application {
         ComboBox<String> location = new ComboBox<String>();
         location.setPromptText("Valitse mökin sijainti");
         
+        // lisätään olemassa olevat paikkakunnat
+        location.getItems().addAll("Kuusamo",
+                                    "Nulla",
+                                    "ante",
+                                    "aliquam",
+                                    "Cras",
+                                    "eu",
+                                    "Integer",
+                                    "vitae",
+                                    "dignissim",
+                                    "Vivamus",
+                                    "blandit",
+                                    "Duis",
+                                    "ligula",
+                                    "Integer",
+                                    "nulla",
+                                    "Donec",
+                                    "eu",
+                                    "malesuada",
+                                    "Donec",
+                                    "Molestie"
+        );
+
         // TODO
-        // paikkakuntien haku comboboksiin
+        // paikkakuntien haku comboboksiin (näkymä joka hakee kaikki paikkakunnat -> paikkakunnat listaan)
         // tieto hashmappiin ja haku kannasta tietojen täsmätessä
         // metodeihin pilkkominen
 
@@ -142,8 +168,9 @@ public class Sivut extends Application {
         paneeli.getChildren().add(searchButton);
 
         searchButton.setOnAction(e -> {
-            System.out.println("check-in " + checkInDatePicker.getValue());
-            System.out.println("check-out " + checkOutDatePicker.getValue());
+            System.out.println("check-in: " + checkInDatePicker.getValue());
+            System.out.println("check-out: " + checkOutDatePicker.getValue());
+            System.out.println("Sijainti: " + location.getValue());
         });
 
         GridPane aa = new GridPane();
