@@ -41,18 +41,23 @@ public class NavBar extends HBox {
     private void generateActions() {
         yleisnakymaButton.setOnAction(e -> {
             stage.setScene(new Scene(new YleisNakyma(stage), stage.getScene().getWidth(), stage.getScene().getHeight()));
+            stage.setTitle("Yleisnäkymä");
         });
         mokkiHallintaNakymaButton.setOnAction(e -> {
             stage.setScene(new Scene(new MokkiHallintaNakyma(stage), stage.getScene().getWidth(), stage.getScene().getHeight()));
+            stage.setTitle("Mökkien hallinta");
         });
         alueidenHallintaNakymaButton.setOnAction(e -> {
             stage.setScene(new Scene(new AlueHallintaNakyma(stage), stage.getScene().getWidth(), stage.getScene().getHeight()));
+            stage.setTitle("Alueiden hallinta");
         });
         varaustenHallintaNakymaButton.setOnAction(e -> {
             stage.setScene(new Scene(new VarausHallintaNakyma(stage), stage.getScene().getWidth(), stage.getScene().getHeight()));
+            stage.setTitle("Varausten hallinta");
         });
         palveluidenHallintaNakymaButton.setOnAction(e-> {
             stage.setScene(new Scene(new PalveluHallintaNakyma(stage), stage.getScene().getWidth(), stage.getScene().getHeight()));
+            stage.setTitle("Palveluiden hallinta");
         });
     }
 }
