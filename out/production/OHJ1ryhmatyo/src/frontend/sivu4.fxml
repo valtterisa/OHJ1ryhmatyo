@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView editable="true" fixedCellSize="10.0" layoutX="40.0" layoutY="69.0" prefHeight="281.0" prefWidth="520.0">
+         <columns>
+            <TableColumn prefWidth="118.20001220703125" text="Mökin nimi" />
+            <TableColumn prefWidth="95.59999084472656" text="Sijainti" />
+            <TableColumn prefWidth="70.0" text="Vuokraaja" />
+            <TableColumn prefWidth="60.4000244140625" text="Saapumis" />
+            <TableColumn prefWidth="60.4000244140625" text="Lähtö" />
+            <TableColumn prefWidth="112.79998779296875" text="Puhelinnumero" />
+         </columns>
+      </TableView>
+      <Text fill="#fa0202" layoutX="29.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12." />
+   </children>
+</Pane>
