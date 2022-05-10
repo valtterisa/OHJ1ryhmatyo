@@ -2,7 +2,6 @@ package src.backend.api;
 
 import src.backend.DatabaseConnection;
 import src.backend.datatypes.Alue;
-import src.backend.datatypes.Asiakas;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,7 +21,7 @@ public class AlueFunctions {
         DatabaseConnection db = new DatabaseConnection();
         ArrayList<ArrayList<String>> response = db.doSQL("post", "alue", params);
 
-        HashMap<String, String> alueParams = new HashMap();
+        HashMap<String, String> alueParams = new HashMap<String,String>();
         alueParams.put("alue_id",  response.get(0).get(2));
         return getAlue(alueParams).get(0);
     }

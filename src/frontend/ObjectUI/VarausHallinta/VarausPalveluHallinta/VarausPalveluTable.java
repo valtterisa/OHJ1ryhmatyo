@@ -6,9 +6,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import src.backend.datatypes.Mokki;
 import src.backend.datatypes.VarauksenPalvelu;
-import src.frontend.ObjectUI.MokkiHallinta.MokkiHallintaNakyma;
+
 
 public class VarausPalveluTable extends TableView<VarauksenPalvelu> {
 

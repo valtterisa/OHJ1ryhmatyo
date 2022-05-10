@@ -3,7 +3,6 @@ package src.frontend.ObjectUI.VarausHallinta;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -11,7 +10,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import src.backend.api.BackendAPI;
-import src.backend.datatypes.Mokki;
 import src.backend.datatypes.Varaus;
 
 import java.util.HashMap;

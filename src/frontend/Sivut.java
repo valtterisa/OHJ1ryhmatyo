@@ -121,8 +121,9 @@ public class Sivut extends Application {
         ComboBox<String> location = new ComboBox<String>();
         location.setPromptText("Valitse mökin sijainti");
         
-        // haetaan paikkakunnat BackendAPI:sta
-        // miten saisi kaikki paikkakunnat vaan??
+        // TODO
+        // paikkakuntien haku comboboksiin
+        // tieto hashmappiin ja haku kannasta tietojen täsmätessä
 
         paneeli.getChildren().add(location);
 

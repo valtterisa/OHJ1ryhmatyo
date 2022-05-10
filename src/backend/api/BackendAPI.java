@@ -3,9 +3,7 @@ package src.backend.api;
 import src.backend.DatabaseConnection;
 import src.backend.datatypes.*;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
 public class BackendAPI {

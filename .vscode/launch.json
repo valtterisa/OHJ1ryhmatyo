@@ -1,0 +1,64 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Launch BackendDemo",
+            "request": "launch",
+            "mainClass": "src.backend.BackendDemo",
+            "projectName": "OHJ1ryhmatyo-2_3442c3fd"
+        },
+        {
+            "type": "java",
+            "name": "Launch DatabaseConnection",
+            "request": "launch",
+            "mainClass": "src.backend.DatabaseConnection",
+            "projectName": "OHJ1ryhmatyo-2_3442c3fd"
+        },
+        {
+            "type": "java",
+            "name": "Launch BackendAPI",
+            "request": "launch",
+            "mainClass": "src.backend.api.BackendAPI",
+            "projectName": "OHJ1ryhmatyo-2_3442c3fd"
+        },
+        {
+            "type": "java",
+            "name": "Launch GUI",
+            "request": "launch",
+            "mainClass": "src.frontend.GUI",
+            "projectName": "OHJ1ryhmatyo-2_3442c3fd"
+        },
+        {
+            "type": "java",
+            "name": "Launch Kayttoliittyma",
+            "request": "launch",
+            "mainClass": "src.frontend.Kayttoliittyma",
+            "projectName": "OHJ1ryhmatyo-2_3442c3fd"
+        },
+        {
+            "type": "java",
+            "name": "Launch App",
+            "request": "launch",
+            "mainClass": "src.frontend.ObjectUI.App",
+            "projectName": "OHJ1ryhmatyo-2_3442c3fd"
+        },
+        {
+            "type": "java",
+            "name": "Launch Sivut",
+            "request": "launch",
+            "vmArgs": "--module-path C:/Users/Valtteri/Downloads/openjfx-17.0.2_windows-x64_bin-sdk/javafx-sdk-17.0.2/lib --add-modules javafx.controls,javafx.fxml",
+            "mainClass": "src.frontend.Sivut",
+            "projectName": "OHJ1ryhmatyo-2_3442c3fd"
+        }
+    ]
+}

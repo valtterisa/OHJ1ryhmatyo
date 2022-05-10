@@ -1,19 +1,14 @@
 package src.frontend;
 
-import com.sun.javafx.scene.control.InputField;
 import javafx.application.Application;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import src.backend.api.BackendAPI;
-import src.backend.datatypes.Mokki;
 import src.backend.datatypes.Varaus;
 
 import java.util.ArrayList;

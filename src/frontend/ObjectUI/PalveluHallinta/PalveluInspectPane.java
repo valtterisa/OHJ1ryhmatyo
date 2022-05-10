@@ -7,11 +7,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import src.backend.datatypes.Mokki;
 import src.backend.datatypes.Palvelu;
-import src.frontend.ObjectUI.MokkiHallinta.MokkiDeleteNakyma;
-import src.frontend.ObjectUI.MokkiHallinta.MokkiEditNakyma;
-import src.frontend.ObjectUI.MokkiHallinta.MokkiHallintaNakyma;
 
 public class PalveluInspectPane extends VBox {
 

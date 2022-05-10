@@ -121,5 +121,6 @@ public class BackendDemo {
         }
 
         System.out.println("Tietokanta palauttaa: " + db.doSQL(method, table, params, id));
+        input.close();
     }
 }

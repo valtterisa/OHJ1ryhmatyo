@@ -7,7 +7,6 @@ import src.backend.datatypes.VarauksenPalvelu;
 import src.backend.datatypes.Varaus;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 
 public class VarausFunctions {

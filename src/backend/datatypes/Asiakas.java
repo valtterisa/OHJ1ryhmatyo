@@ -38,7 +38,7 @@ public class Asiakas {
 
     public ArrayList<Varaus> getVaraukset() {
         if (this.varaukset == null) {
-            HashMap<String, String> params = new HashMap();
+            HashMap<String, String> params = new HashMap<String,String>();
             params.put("asiakas_id", this.asiakas_id + "");
             this.varaukset = BackendAPI.getVaraus(params);
         }
