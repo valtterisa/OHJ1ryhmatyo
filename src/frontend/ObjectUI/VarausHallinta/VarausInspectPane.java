@@ -75,9 +75,9 @@ public class VarausInspectPane extends VBox {
 
             ArrayList<VarauksenPalvelu> palvelut = selectedVaraus.getPalvelut();
 
-            Text varausPalvelut = new Text("Varauksen palvelut: +\n");
+            Text varausPalvelut = new Text("Varauksen palvelut:");
             for (VarauksenPalvelu vp : palvelut) {
-                varausPalvelut.setText(varausPalvelut.getText() + "- " + vp.getPalvelu().getNimi() + "(" + vp.getLkm() + " kpl.)");
+                varausPalvelut.setText(varausPalvelut.getText() + "\n- " + vp.getPalvelu().getNimi() + " (" + vp.getLkm() + " kpl.)");
             }
 
             varausTitle.setFont(new Font(20));
@@ -89,6 +89,7 @@ public class VarausInspectPane extends VBox {
             varausInfo.getChildren().add(varausStartDate);
             varausInfo.getChildren().add(varausEndtDate);
             varausInfo.getChildren().add(varausconfirmationDate);
+            varausInfo.getChildren().add(varausPalvelut);
 
             // ASIAKAS
             Asiakas varaaja = selectedVaraus.getAsiakas();
