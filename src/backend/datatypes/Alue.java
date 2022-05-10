@@ -2,14 +2,14 @@ package src.backend.datatypes;
 
 public class Alue {
 
-    private String id;
+    private Integer id;
     private String nimi;
     public Alue(String id, String nimi) {
-        this.id = id;
+        this.id = Integer.parseInt(id);
         this.nimi=nimi;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 

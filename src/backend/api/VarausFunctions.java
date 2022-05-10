@@ -75,13 +75,13 @@ public class VarausFunctions {
             ArrayList<Mokki> mokkiList = MokkiFunctions.getMokki(changingMokkiParameters);
 
             if (asiakasList.size() > 0 && mokkiList.size() > 0) {
-                if (asiakasList.get(0).getAsiakas_id().equals(x.getAsiakas_id())) {
+                if ((asiakasList.get(0).getAsiakas_id() + "").equals(x.getAsiakas_id())) {
                     x.setAsiakas(asiakasList.get(0));
                 }
                 else {
                     continue;
                 }
-                if (mokkiList.get(0).getMokki_id().equals(x.getMokki_mokki_id())) {
+                if ((mokkiList.get(0).getMokki_id() + "").equals(x.getMokki_mokki_id())) {
                     x.setMokki(mokkiList.get(0));
                 }
                 else {

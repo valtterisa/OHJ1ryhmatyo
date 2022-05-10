@@ -4,35 +4,35 @@ import src.backend.api.BackendAPI;
 
 public class Mokki {
 
-    private String mokki_id;
-    private String alue_id;
+    private Integer mokki_id;
+    private Integer alue_id;
     private String alue;
     private String postinro;
     private String postitoimipaikka;
     private String mokkinimi;
     private String katuosoite;
-    private String hinta;
+    private Double hinta;
     private String kuvaus;
-    private String henkilomaara;
+    private Integer henkilomaara;
     private String varustelu;
 
     public Mokki(String mokki_id, String alue_id, String postinro, String mokkinimi, String katuosoite, String hinta, String kuvaus, String henkilomaara, String varustelu) {
-        this.mokki_id = mokki_id;
-        this.alue_id = alue_id;
+        this.mokki_id = Integer.parseInt(mokki_id);
+        this.alue_id = Integer.parseInt(alue_id);
         this.postinro = postinro;
         this.mokkinimi = mokkinimi;
         this.katuosoite = katuosoite;
-        this.hinta = hinta;
+        this.hinta = Double.parseDouble(hinta);
         this.kuvaus = kuvaus;
-        this.henkilomaara = henkilomaara;
+        this.henkilomaara = Integer.parseInt(henkilomaara);
         this.varustelu = varustelu;
     }
 
-    public String getMokki_id() {
+    public Integer getMokki_id() {
         return mokki_id;
     }
 
-    public String getAlue_id() {
+    public Integer getAlue_id() {
         return alue_id;
     }
 
@@ -48,7 +48,7 @@ public class Mokki {
         return katuosoite;
     }
 
-    public String getHinta() {
+    public Double getHinta() {
         return hinta;
     }
 
@@ -56,7 +56,7 @@ public class Mokki {
         return kuvaus;
     }
 
-    public String getHenkilomaara() {
+    public Integer getHenkilomaara() {
         return henkilomaara;
     }
 
@@ -67,7 +67,7 @@ public class Mokki {
     //Palauttaa alueen. Jos ei ole, hakee sen alue_id:llä
     public String getAlue() {
         if (this.alue == null) {
-            this.alue = BackendAPI.getAlue(this.alue_id);
+            this.alue = BackendAPI.getAlue(this.alue_id + "");
         }
         return alue;
     }

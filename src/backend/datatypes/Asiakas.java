@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public class Asiakas {
 
-    private String asiakas_id;
+    private Integer asiakas_id;
     private String postinro;
     private String postitoimipaikka;
     private String etunimi;
@@ -19,7 +19,7 @@ public class Asiakas {
     private ArrayList<Varaus> varaukset;
 
     public Asiakas (String asiakas_id, String postinro, String etunimi, String sukunimi, String lahiosoite, String email, String puhelinnro) {
-        this.asiakas_id = asiakas_id;
+        this.asiakas_id = Integer.parseInt(asiakas_id);
         this.postinro = postinro;
         this.etunimi = etunimi;
         this.sukunimi = sukunimi;
@@ -39,13 +39,13 @@ public class Asiakas {
     public ArrayList<Varaus> getVaraukset() {
         if (this.varaukset == null) {
             HashMap<String, String> params = new HashMap();
-            params.put("asiakas_id", this.asiakas_id);
+            params.put("asiakas_id", this.asiakas_id + "");
             this.varaukset = BackendAPI.getVaraus(params);
         }
         return this.varaukset;
     }
 
-    public String getAsiakas_id() {
+    public Integer getAsiakas_id() {
         return asiakas_id;
     }
 

@@ -39,13 +39,19 @@ public class VarauksenPalvelu {
         return palvelu;
     }
 
+    public String toNeatString() {
+        return getPalvelu().getNimi() + "(" + lkm + " kpl)";
+    }
+
     @Override
     public String toString() {
+        return toNeatString();
+        /*
         return "VarauksenPalvelu{" +
                 "varaus_id='" + varaus_id + '\'' +
                 ", palvelu_id='" + palvelu_id + '\'' +
                 ", palvelu=" + palvelu +
                 ", lkm='" + lkm + '\'' +
-                '}';
+                '}';*/
     }
 }
