@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Varaus {
-    private String varaus_id;
+    private Integer varaus_id;
     private String asiakas_id;
     private String mokki_mokki_id;
     private String varattu_pvm;
@@ -20,7 +20,7 @@ public class Varaus {
     private Mokki mokki;
 
     public Varaus (String varaus_id, String asiakas_id, String mokki_mokki_id, String varattu_pvm, String vahvistus_pvm, String varattu_alkupvm, String varattu_loppupvm) {
-        this.varaus_id = varaus_id;
+        this.varaus_id = Integer.parseInt(varaus_id);
         this.asiakas_id = asiakas_id;
         this.mokki_mokki_id = mokki_mokki_id;
         this.varattu_pvm = varattu_pvm;
@@ -29,7 +29,7 @@ public class Varaus {
         this.varattu_loppupvm = varattu_loppupvm;
     }
 
-    public String getVaraus_id() {
+    public Integer getVaraus_id() {
         return varaus_id;
     }
 
@@ -81,7 +81,7 @@ public class Varaus {
     public ArrayList<VarauksenPalvelu> getPalvelut() {
         if (this.palvelut == null) {
             HashMap<String, String> params = new HashMap<>();
-            params.put("varaus_id", this.varaus_id);
+            params.put("varaus_id", this.varaus_id + "");
             this.palvelut = BackendAPI.getVarauksenPalvelu(params);
         }
         return palvelut;

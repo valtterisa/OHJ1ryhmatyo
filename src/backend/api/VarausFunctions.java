@@ -1,10 +1,13 @@
 package src.backend.api;
 
 import src.backend.DatabaseConnection;
+import src.backend.datatypes.Asiakas;
+import src.backend.datatypes.Mokki;
 import src.backend.datatypes.VarauksenPalvelu;
 import src.backend.datatypes.Varaus;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class VarausFunctions {
@@ -51,20 +54,44 @@ public class VarausFunctions {
         return response.get(0).get(1);
     }
 
-    public static ArrayList<Varaus> getVarausTiedoilla(HashMap<String, String> params) {
-        ArrayList<Varaus> varausList = getVaraus(params);
+    public static ArrayList<Varaus> getVarausTiedoilla(HashMap<String, String> varausParams, HashMap<String, String> mokkiParams, HashMap<String, String> asiakasParams) {
+        ArrayList<Varaus> varausList = getVaraus(varausParams);
+        ArrayList<Varaus> returnVarausList = new ArrayList<>();
+
         for (Varaus x : varausList) {
-            HashMap<String, String> asiakasParam = new HashMap<>();
-            asiakasParam.put("asiakas_id", x.getAsiakas_id());
 
-            HashMap<String, String> mokkiParam = new HashMap<>();
-            mokkiParam.put("mokki_id", x.getMokki_mokki_id());
+            HashMap<String, String> changingMokkiParameters = (HashMap<String, String>) mokkiParams.clone();
+            HashMap<String, String> changingAsiakasParameters = (HashMap<String, String>) asiakasParams.clone();
 
-            x.setAsiakas(AsiakasFunctions.getAsiakas(asiakasParam).get(0));
-            x.setMokki(MokkiFunctions.getMokki(mokkiParam).get(0));
+            if (!mokkiParams.containsKey("mokki_id")) {
+                changingMokkiParameters.put("mokki_id", x.getMokki_mokki_id());
+            }
+
+            if (!asiakasParams.containsKey("mokki_id")) {
+                changingAsiakasParameters.put("Asiakas_id", x.getAsiakas_id());
+            }
+
+            ArrayList<Asiakas> asiakasList = AsiakasFunctions.getAsiakas(changingAsiakasParameters);
+            ArrayList<Mokki> mokkiList = MokkiFunctions.getMokki(changingMokkiParameters);
+
+            if (asiakasList.size() > 0 && mokkiList.size() > 0) {
+                if ((asiakasList.get(0).getAsiakas_id() + "").equals(x.getAsiakas_id())) {
+                    x.setAsiakas(asiakasList.get(0));
+                }
+                else {
+                    continue;
+                }
+                if ((mokkiList.get(0).getMokki_id() + "").equals(x.getMokki_mokki_id())) {
+                    x.setMokki(mokkiList.get(0));
+                }
+                else {
+                    continue;
+                }
+                returnVarausList.add(x);
+            }
         }
 
-        return varausList;
+        return returnVarausList;
     }
 
     public static ArrayList<VarauksenPalvelu> getVarauksenPalvelu(HashMap<String, String> params) {
