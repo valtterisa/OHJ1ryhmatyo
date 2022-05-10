@@ -16,7 +16,7 @@ import java.util.HashMap;
 
 public class AsiakasAdditionPane extends VBox {
 
-    private Text title = new Text("Lisää uusi mökki: ");
+    private Text title = new Text("Lisää uusi asiakas: ");
 
     HashMap<String, String> params = new HashMap<>();
 
