@@ -54,6 +54,16 @@ public class VarausAdditionPane extends VBox {
             lisattyStage.setScene(new Scene(new Pane(lisaysviesti)));
             lisattyStage.show();
         });
+        clearButton.setOnAction(e -> {
+            this.params.clear();
+            VarausIdTF.clear();
+            asiakasIdTF.clear();
+            mokkiIdTF.clear();
+            varattuPvmTF.clear();
+            vahvistettuPvmTF.clear();
+            alkuPvmTF.clear();
+            loppuPvmTF.clear();
+        });
     }
 
     private void generateParams() {

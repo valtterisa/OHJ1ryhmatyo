@@ -47,6 +47,11 @@ public class AlueAdditionPane extends VBox {
             lisattyStage.setScene(new Scene(new Pane(lisaysviesti)));
             lisattyStage.show();
         });
+        clearButton.setOnAction(e -> {
+            this.params.clear();
+            alueIdTF.clear();
+            alueTF.clear();
+        });
     }
 
     private void generateParams() {
