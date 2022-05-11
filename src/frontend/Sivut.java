@@ -21,12 +21,14 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import src.backend.api.BackendAPI;
+import src.backend.api.MokkiFunctions;
 import src.backend.datatypes.Mokki;
 import src.frontend.ObjectUI.MokkiHallinta.MokkiTable;
 import src.frontend.ObjectUI.YleisNakyma;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -159,39 +161,34 @@ public class Sivut extends Application {
                                     "Molestie"
         );
 
-        // TODO
-        // paikkakuntien haku comboboksiin (näkymä joka hakee kaikki paikkakunnat -> paikkakunnat listaan)
-        // tieto hashmappiin ja haku kannasta tietojen täsmätessä
-        // metodeihin pilkkominen
-
         TableView<Mokki> vapaatMokit = new TableView<Mokki>();
 
         TableColumn<Mokki, String> otsikko1 = new TableColumn<>("Mökki_id");
-        otsikko1.setCellValueFactory(new PropertyValueFactory<>(""));
+        otsikko1.setCellValueFactory(new PropertyValueFactory<>("mokki_id"));
         otsikko1.setPrefWidth(30);
 
         TableColumn<Mokki, String> otsikko2 = new TableColumn<>("Alue-id");
-        otsikko2.setCellValueFactory(new PropertyValueFactory<>("pelaajanNimi"));
+        otsikko2.setCellValueFactory(new PropertyValueFactory<>("alue_id"));
         otsikko2.setPrefWidth(120);
 
         TableColumn<Mokki, String> otsikko3 = new TableColumn<>("Postinumero");
-        otsikko3.setCellValueFactory(new PropertyValueFactory<>("pelaajanKansallisuus"));
+        otsikko3.setCellValueFactory(new PropertyValueFactory<>("postinro"));
         otsikko3.setPrefWidth(110);
 
         TableColumn<Mokki, String> otsikko4 = new TableColumn<>("Mökin nimi");
-        otsikko4.setCellValueFactory(new PropertyValueFactory<>("pelaajanElo"));
+        otsikko4.setCellValueFactory(new PropertyValueFactory<>("mokkinimi"));
         otsikko4.setPrefWidth(100);
 
         TableColumn<Mokki, String> otsikko5 = new TableColumn<>("Hinta");
-        otsikko5.setCellValueFactory(new PropertyValueFactory<>("pelaajanIka"));
+        otsikko5.setCellValueFactory(new PropertyValueFactory<>("hinta"));
         otsikko5.setPrefWidth(100);
 
         TableColumn<Mokki, String> otsikko6 = new TableColumn<>("Kuvaus");
-        otsikko5.setCellValueFactory(new PropertyValueFactory<>("pelaajanIka"));
+        otsikko5.setCellValueFactory(new PropertyValueFactory<>("kuvaus"));
         otsikko5.setPrefWidth(100);
 
         TableColumn<Mokki, String> otsikko7 = new TableColumn<>("Henkilömäärä");
-        otsikko5.setCellValueFactory(new PropertyValueFactory<>("pelaajanIka"));
+        otsikko5.setCellValueFactory(new PropertyValueFactory<>("henkilomaara"));
         otsikko5.setPrefWidth(100);
 
         // lisätään luodut columnit/otsikot rankingLista-tableen
@@ -222,15 +219,25 @@ public class Sivut extends Application {
             System.out.println("check-in: " + checkInDatePicker.getValue());
             System.out.println("check-out: " + checkOutDatePicker.getValue());
             System.out.println("Sijainti: " + location.getValue());
+
+            // valitut arvot parametreiksi ja haku kannasta
+            HashMap<String, String> alue = new HashMap<String, String>();
+            alue.put("nimi", location.getValue());
+            
+            ArrayList<Mokki> mokit = MokkiFunctions.getMokki(alue);
+            for (Mokki x : mokit) {
+                vapaatMokit.getItems().add(x);
+            }
+
         });
 
         // tableview tässä boksissa
-        HBox aa = new HBox();
-        aa.getChildren().add(vapaatMokit);
+        HBox tableview = new HBox();
+        tableview.getChildren().add(vapaatMokit);
 
         // paneeli jossa yhdistetään kaksi HBoxia
         VBox root = new VBox(5);
-        root.getChildren().addAll(paneeli,aa);
+        root.getChildren().addAll(paneeli,tableview);
 
         SCENE1 = new Scene(root, 700,400);
         return SCENE1;
