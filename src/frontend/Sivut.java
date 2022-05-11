@@ -263,7 +263,37 @@ public class Sivut extends Application {
 
             // haetaan mökit tietyllä alued_id ja laitetaan TableViewiin
             ArrayList<Mokki> mokit = MokkiFunctions.getMokki(mokitAlue);
+
+            // kerätään haettujen mökkien ID:t
+            ArrayList<String> mokkiId = new ArrayList<String>();
+            for (Mokki i : mokit) {
+                mokkiId.add(i.getMokki_id());
+            }
+
+            // haetaan mokki_id perusteella varauksia
+            HashMap<String, String> varausParam = new HashMap<String, String>();
+            for (String id : mokkiId) {
+                varausParam.put("mokki_mokki_id", id);
+            }
+
+            ArrayList<Varaus> varauksetJotkaSopii = VarausFunctions.getVaraus(varausParam);
+
+            // kerätään haluttujen kohteiden alkupvm
+            ArrayList<String> start_dates = new ArrayList<String>();
+            for (Varaus start_date : varauksetJotkaSopii) {
+                start_dates.add(start_date.getVarattu_alkupvm());
+            }
+
+            // kerätään haluttujen kohteiden loppupvm
+            ArrayList<String> end_dates = new ArrayList<String>();
+            for (Varaus end_date : varauksetJotkaSopii) {
+                end_dates.add(end_date.getVarattu_loppupvm());
+            }
+
             
+
+            System.out.println(start_dates);
+            System.out.println(end_dates);
 
             for (Mokki x : mokit) {
                 vapaatMokit.getItems().add(x);
