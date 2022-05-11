@@ -10,18 +10,16 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DateCell;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
+import org.w3c.dom.Text;
 import src.backend.api.BackendAPI;
 import src.frontend.ObjectUI.YleisNakyma;
-import javafx.scene.control.DatePicker;
 
 
 public class Sivut extends Application {
@@ -54,6 +52,7 @@ public class Sivut extends Application {
 
         paaIkkuna.setTitle("Mökkien varausjärjestelmä");
         paaIkkuna.setScene(SCENE1);
+        // paaIkkuna.setScene(SCENE3);
         paaIkkuna.show();
     }
     private Scene EnsimmainenSivu() {
@@ -195,11 +194,65 @@ public class Sivut extends Application {
     }
 
     private Scene KolmasSivu() {
-        GridPane paneeli3 = new GridPane();  //Luodaan paneeli ensimmäiselle sivulle ja määritellään se
+        Pane paneeli3 = new Pane();  //Luodaan paneeli ensimmäiselle sivulle ja määritellään se
         paneeli3.setMinSize(200, 200);
-        paneeli3.setAlignment(Pos.TOP_CENTER);
-        paneeli3.setHgap(10);
-        paneeli3.setVgap(20);
+
+
+        TextField tekstikentta1  = new TextField();
+        tekstikentta1.setLayoutX(105.0);
+        tekstikentta1.setLayoutY(50.0);
+
+
+        TextField tekstikentta2  = new TextField();
+        tekstikentta2.setLayoutX(105.0);
+        tekstikentta2.setLayoutY(100.0);
+        tekstikentta2.setPromptText("Etunimi");
+
+        TextField tekstikentta3  = new TextField();
+        tekstikentta3.setLayoutX(105.0);
+        tekstikentta3.setLayoutY(135.0);
+        tekstikentta3.setPromptText("Sukunimi");
+
+        TextField tekstikentta4  = new TextField();
+        tekstikentta4.setLayoutX(105.0);
+        tekstikentta4.setLayoutY(170.0);
+        tekstikentta4.setPromptText("Postinumero");
+
+        TextField tekstikentta5  = new TextField();
+        tekstikentta5.setLayoutX(105.0);
+        tekstikentta5.setLayoutY(205.0);
+        tekstikentta5.setPromptText("Osoite");
+
+        TextField tekstikentta6  = new TextField();
+        tekstikentta6.setLayoutX(105.0);
+        tekstikentta6.setLayoutY(240.0);
+        tekstikentta6.setPromptText("Puhelinnumero");
+
+        TextField tekstikentta7  = new TextField();
+        tekstikentta7.setLayoutX(105.0);
+        tekstikentta7.setLayoutY(275.0);
+        tekstikentta7.setPromptText("Sähköposti");
+
+        TextField tekstikenttä_hinta = new TextField();
+        tekstikenttä_hinta.setLayoutX(375);
+        tekstikenttä_hinta.setLayoutY(205);
+
+        Button maksa = new Button();
+        maksa.setLayoutX(420);
+        maksa.setLayoutY(240);
+        maksa.setText("Maksa");
+
+
+
+
+
+
+
+
+
+        paneeli3.getChildren().addAll(tekstikentta1,tekstikentta2,tekstikentta6
+                ,tekstikentta3,tekstikentta4,tekstikentta5,tekstikentta7,tekstikenttä_hinta,maksa);
+
 
         SCENE3 = new Scene(paneeli3, 600,400);
         return SCENE3;
