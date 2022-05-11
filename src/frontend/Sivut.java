@@ -1,7 +1,6 @@
 package src.frontend;
 
 import javafx.application.Application;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -11,10 +10,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
@@ -22,10 +17,12 @@ import javafx.util.Callback;
 import javafx.util.StringConverter;
 import src.backend.api.BackendAPI;
 import src.backend.datatypes.Mokki;
+import src.frontend.ObjectUI.MokkiHallinta.MokkiTable;
 import src.frontend.ObjectUI.YleisNakyma;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -249,15 +246,19 @@ public class Sivut extends Application {
         Button varaa = new Button("Varaa");
         paneeli2.add(varaa, 3, 3);
 
-        BorderPane mokintiedot = new BorderPane();
-        paneeli2.add(mokintiedot, 3, 3);
+        MokkiTable table = new MokkiTable();
 
-        TableView tb = new TableView<>();
+        HashMap<String, String> mokinTiedot = new HashMap();
+        mokinTiedot.put("mokki_id", "1");
 
-        mokintiedot.setCenter(tb);
+        ArrayList<Mokki> Mokit = BackendAPI.getMokki(mokinTiedot);
+        System.out.println(Mokit);
+        for (Mokki x : Mokit) {
+            table.getItems().add(x);
+        }
 
         varaa.setOnAction(e -> {
-
+            switchScenes(SCENE3);
         });
 
         Button nappainSEURAAVA = new Button("Seuraava");
