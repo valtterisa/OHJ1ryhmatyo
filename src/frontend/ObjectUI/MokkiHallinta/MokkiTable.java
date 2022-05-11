@@ -28,16 +28,16 @@ public class MokkiTable extends TableView<Mokki> {
         TableColumn<Mokki, Number> col10 = new TableColumn<>("Henkilömäärä");
         TableColumn<Mokki, String> col11 = new TableColumn<>("Varustelu");
 
-        col1.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getMokki_id()));
+        col1.setCellValueFactory(cellData -> new SimpleIntegerProperty(Integer.parseInt(cellData.getValue().getMokki_id())));
         col2.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMokkinimi()));
-        col3.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getAlue_id()));
+        col3.setCellValueFactory(cellData -> new SimpleIntegerProperty(Integer.parseInt(cellData.getValue().getAlue_id())));
         col4.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAlue()));
         col5.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getKatuosoite()));
         col6.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPostinro()));
         col7.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPostitoimipaikka()));
-        col8.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getHinta()));
+        col8.setCellValueFactory(cellData -> new SimpleDoubleProperty(Double.parseDouble(cellData.getValue().getHinta())));
         col9.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getKuvaus()));
-        col10.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getHenkilomaara()));
+        col10.setCellValueFactory(cellData -> new SimpleIntegerProperty(Integer.parseInt(cellData.getValue().getHenkilomaara())));
         col11.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getVarustelu()));
 
         this.getColumns().addAll(col1, col2, col3, col4, col5, col6, col7, col8, col9, col10, col11);
