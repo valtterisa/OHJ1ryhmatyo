@@ -128,11 +128,18 @@ public class BackendAPI {
     }
 
     // LASKU
-    /* TODO
-    *   -Tähän frontendille näkyvät funktiot laskujen hallinnointiin.
-    *   -Laskun paperisen / s.posti -version generoinnin voisi toteuttaa Lasku-luokan sisällä
-    *    jonkinlaisella generateLasku() -metodilla?
-    */
+    public static ArrayList<Lasku> getLasku(HashMap<String, String> params) {                                           // Hakee parametreja vastaavat laskut tietokannasta
+        return LaskuFunctions.getLasku(params);                                                                         // Palauttaa listan laskuja
+    }
+    public static Lasku postLasku(HashMap<String, String> params) {                                                     // Lähettää laskun tietokantaan annetuilla tiedoilla
+        return LaskuFunctions.postLasku(params);                                                                        // Palauttaa lisätyn laskun
+    }
+    public static Lasku updateLasku(HashMap<String, String> params, String id) {                                        // Päivittää annetut laskun tiedot tietokantaan
+        return LaskuFunctions.putLasku(params, id);                                                                     // Palauttaa päivitetyn laskun
+    }
+    public static String deleteLasku(HashMap<String, String> params) {                                                  // Poistaa laskun tetokannasta
+        return LaskuFunctions.deleteLasku(params);                                                                      // Palauttaa poistettujen laskujen määrän.
+    }
 
     public static void main(String[] args) {
 

@@ -1,6 +1,5 @@
-package src.frontend.ObjectUI.MokkiHallinta;
+package src.frontend.ObjectUI.LaskuHallinta;
 
-import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
@@ -8,9 +7,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import src.frontend.ObjectUI.NavBar;
 
-
-public class MokkiHallintaNakyma extends BorderPane {
-
+public class LaskuHallintaNakyma extends BorderPane {
     private Stage stage;
 
     Button searchButton;
@@ -18,11 +15,12 @@ public class MokkiHallintaNakyma extends BorderPane {
 
     Button addButton;
     Button clearButton2;
-    MokkiTable table = new MokkiTable("interactive");
 
     private ScrollPane sidePanel = new ScrollPane();
 
-    public MokkiHallintaNakyma(Stage stage) {
+    LaskuTable table = new LaskuTable();
+
+    public LaskuHallintaNakyma(Stage stage) {
         this.stage = stage;
 
         this.searchButton = new Button("Hae");
@@ -38,17 +36,17 @@ public class MokkiHallintaNakyma extends BorderPane {
     public void construct() {
         sidePanel.setContent(
                 new VBox(
-                    new MokkiSearchPane(searchButton, clearButton, table),
-                    new MokkiAdditionPane(addButton, clearButton2))
-                );
+                        new LaskuSearchPane(searchButton, clearButton, table),
+                        new LaskuAdditionPane(addButton, clearButton2))
+        );
 
         this.setLeft(sidePanel);
         this.setTop(new NavBar(stage));
         this.setCenter(table);
-        this.setRight(new MokkiInspectPane(table.getSelectedItem()));
+        this.setRight(new LaskuInspectPane(table.getSelectedItem()));
     }
 
-    public MokkiTable getTable() {
+    public LaskuTable getTable() {
         return table;
     }
 

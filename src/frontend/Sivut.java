@@ -1,7 +1,6 @@
 package src.frontend;
 
 import javafx.application.Application;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -11,10 +10,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
@@ -28,6 +23,7 @@ import src.backend.datatypes.Alue;
 import src.backend.datatypes.Mokki;
 import src.backend.datatypes.Varaus;
 import src.frontend.ObjectUI.YleisNakyma;
+import src.frontend.ObjectUI.MokkiHallinta.MokkiTable;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -68,11 +64,36 @@ public class Sivut extends Application {
         SCENE3 = KolmasSivu();
         SCENE4 = NeljasSivu(paaIkkuna);
 
+        Pane paneeli5 = new Pane();
+        Scene aloitus = new Scene(paneeli5);
+        VBox box = new VBox();
+        box.setPadding(new Insets(65));
+        box.setAlignment(Pos.CENTER);
+
+        HBox napit_paneeli5 = new HBox(15);
+        napit_paneeli5.setAlignment(Pos.CENTER);
+        napit_paneeli5.setPadding(new Insets(15,5,5,15));
+        Button sivu1 = new Button("Sivu 1");
+        Button sivu2 = new Button("Sivu 2 ");
+        Button sivu3 = new Button("Sivu 3");
+        Button sivu4 = new Button("Admin");
+        napit_paneeli5.getChildren().addAll(sivu1,sivu2,sivu3,sivu4);
+        box.getChildren().add(napit_paneeli5);
+        paneeli5.getChildren().add(box);
+
+        sivu1.setOnAction(e-> paaIkkuna.setScene(SCENE1));
+        sivu2.setOnAction(e-> paaIkkuna.setScene(SCENE2));
+        sivu3.setOnAction(e-> paaIkkuna.setScene(SCENE3));
+        sivu4.setOnAction(e-> paaIkkuna.setScene(SCENE4));
+
+
+
         paaIkkuna.setTitle("Mökkien varausjärjestelmä");
         paaIkkuna.setScene(SCENE1);
         // paaIkkuna.setScene(SCENE3);
         paaIkkuna.show();
     }
+
     private Scene EnsimmainenSivu() {
 
         DatePicker checkInDatePicker = new DatePicker();
@@ -165,26 +186,31 @@ public class Sivut extends Application {
                                     "Molestie"
         );
 
+        // TODO
+        // paikkakuntien haku comboboksiin (näkymä joka hakee kaikki paikkakunnat -> paikkakunnat listaan)
+        // tieto hashmappiin ja haku kannasta tietojen täsmätessä
+        // metodeihin pilkkominen
+
         TableView<Mokki> vapaatMokit = new TableView<Mokki>();
 
         TableColumn<Mokki, String> otsikko1 = new TableColumn<>("Mökki_id");
-        otsikko1.setCellValueFactory(new PropertyValueFactory<>("mokki_id"));
+        otsikko1.setCellValueFactory(new PropertyValueFactory<>(""));
         otsikko1.setPrefWidth(30);
 
         TableColumn<Mokki, String> otsikko2 = new TableColumn<>("Alue-id");
-        otsikko2.setCellValueFactory(new PropertyValueFactory<>("alue_id"));
+        otsikko2.setCellValueFactory(new PropertyValueFactory<>("pelaajanNimi"));
         otsikko2.setPrefWidth(120);
 
         TableColumn<Mokki, String> otsikko3 = new TableColumn<>("Postinumero");
-        otsikko3.setCellValueFactory(new PropertyValueFactory<>("postinro"));
+        otsikko3.setCellValueFactory(new PropertyValueFactory<>("pelaajanKansallisuus"));
         otsikko3.setPrefWidth(110);
 
         TableColumn<Mokki, String> otsikko4 = new TableColumn<>("Mökin nimi");
-        otsikko4.setCellValueFactory(new PropertyValueFactory<>("mokkinimi"));
+        otsikko4.setCellValueFactory(new PropertyValueFactory<>("pelaajanElo"));
         otsikko4.setPrefWidth(100);
 
         TableColumn<Mokki, String> otsikko5 = new TableColumn<>("Hinta");
-        otsikko5.setCellValueFactory(new PropertyValueFactory<>("hinta"));
+        otsikko5.setCellValueFactory(new PropertyValueFactory<>("pelaajanIka"));
         otsikko5.setPrefWidth(100);
 
         TableColumn<Mokki, String> otsikko6 = new TableColumn<>("Kuvaus");
@@ -279,17 +305,23 @@ public class Sivut extends Application {
         paneeli2.add(tervetuloa, 1,0);
 
         Button varaa = new Button("Varaa");
-        paneeli2.add(varaa, 3, 3);
+        paneeli2.add(varaa, 2, 9);
 
-        BorderPane mokintiedot = new BorderPane();
-        paneeli2.add(mokintiedot, 3, 3);
+        MokkiTable table = new MokkiTable();
 
-        TableView tb = new TableView<>();
+        HashMap<String, String> mokinTiedot = new HashMap();
+        mokinTiedot.put("mokki_id", "1");
 
-        mokintiedot.setCenter(tb);
+        ArrayList<Mokki> Mokit = BackendAPI.getMokki(mokinTiedot);
+        System.out.println(Mokit);
+        for (Mokki x : Mokit) {
+            table.getItems().add(x);
+        }
+
+        paneeli2.getChildren().add(table);
 
         varaa.setOnAction(e -> {
-
+            switchScenes(SCENE3);
         });
 
         Button nappainSEURAAVA = new Button("Seuraava");
@@ -344,14 +376,26 @@ public class Sivut extends Application {
         tekstikentta7.setLayoutY(275.0);
         tekstikentta7.setPromptText("Sähköposti");
 
-        TextField tekstikenttä_hinta = new TextField();
-        tekstikenttä_hinta.setLayoutX(375);
-        tekstikenttä_hinta.setLayoutY(205);
+        TextField tekstikentta_hinta = new TextField();
+        tekstikentta_hinta.setLayoutX(375);
+        tekstikentta_hinta.setLayoutY(205);
 
-        Button maksa = new Button();
+        Button maksa = new Button("Maksa");
         maksa.setLayoutX(420);
         maksa.setLayoutY(240);
-        maksa.setText("Maksa");
+
+
+        Button nappainSEURAAVA3 = new Button("Seuraava");
+        nappainSEURAAVA3.setOnAction(e -> switchScenes(SCENE4));
+
+        Button nappainEDELLINEN3 = new Button("Edellinen");
+        nappainEDELLINEN3.setOnAction(e -> switchScenes(SCENE2));
+
+        nappainEDELLINEN3.setLayoutX(0);
+        nappainEDELLINEN3.setLayoutY(375);
+
+        nappainSEURAAVA3.setLayoutX(535);
+        nappainSEURAAVA3.setLayoutY(375);
 
 
         maksa.setOnAction(e-> {
@@ -393,7 +437,9 @@ public class Sivut extends Application {
         paneeli3.getChildren().add(nappainEDELLINEN);
 
         paneeli3.getChildren().addAll(tekstikentta1,tekstikentta2,tekstikentta6
-                ,tekstikentta3,tekstikentta4,tekstikentta5,tekstikentta7,tekstikenttä_hinta,maksa);
+                ,tekstikentta3,tekstikentta4,tekstikentta5,tekstikentta7,tekstikentta_hinta,maksa);
+        paneeli3.getChildren().addAll(nappainEDELLINEN3,nappainSEURAAVA3);
+
 
 
         SCENE3 = new Scene(paneeli3, 600,400);
