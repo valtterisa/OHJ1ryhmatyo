@@ -18,7 +18,7 @@ public class VarausTable extends TableView<Varaus> {
         TableColumn<Varaus, String> col5 = new TableColumn<>("lähtö");
         TableColumn<Varaus, String> col6 = new TableColumn<>("puhelinnro");
 
-        col1.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getMokki().getMokki_id()));
+        col1.setCellValueFactory(cellData -> new SimpleIntegerProperty(Integer.parseInt(cellData.getValue().getMokki().getMokki_id())));
         col2.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMokki().getMokkinimi()));
         col3.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMokki().getAlue()));
         col4.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAsiakas().getEtunimi() + " " + cellData.getValue().getAsiakas().getSukunimi()));

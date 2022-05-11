@@ -22,6 +22,7 @@ import javafx.util.Callback;
 import javafx.util.StringConverter;
 import src.backend.api.BackendAPI;
 import src.backend.datatypes.Mokki;
+import src.frontend.ObjectUI.MokkiHallinta.MokkiTable;
 import src.frontend.ObjectUI.YleisNakyma;
 
 import java.time.LocalDate;
@@ -374,6 +375,7 @@ public class Sivut extends Application {
         //paneeli4.setVgap(20);
 
         SCENE4 = new Scene(paneeli4, 600,400);
+
         return SCENE4;
     }
     public void switchScenes(Scene scene) {
