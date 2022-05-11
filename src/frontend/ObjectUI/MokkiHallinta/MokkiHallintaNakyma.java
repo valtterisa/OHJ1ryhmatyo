@@ -18,7 +18,7 @@ public class MokkiHallintaNakyma extends BorderPane {
 
     Button addButton;
     Button clearButton2;
-    MokkiTable table = new MokkiTable();
+    MokkiTable table = new MokkiTable("interactive");
 
     private ScrollPane sidePanel = new ScrollPane();
 
