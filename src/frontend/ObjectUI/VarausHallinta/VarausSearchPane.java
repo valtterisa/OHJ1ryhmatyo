@@ -180,10 +180,10 @@ public class VarausSearchPane extends VBox {
         String varattuPVM = varattuTF.getText();
 
         if (varausId.length() > 0) {
-            mokkiParams.put("varaus_id", varausId);
+            varausParams.put("varaus_id", varausId);
         }
         if (varattuPVM.length() > 0) {
-            mokkiParams.put("varattu_pvm", varattuPVM);
+            varausParams.put("varattu_pvm", varattuPVM);
         }
     }
 
