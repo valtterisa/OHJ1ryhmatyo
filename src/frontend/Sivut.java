@@ -1,10 +1,5 @@
 package src.frontend;
 
-import java.awt.event.ActionEvent;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-
 import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -12,16 +7,21 @@ import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
-import org.w3c.dom.Text;
 import src.backend.api.BackendAPI;
-import java.util.HashMap;
 import src.frontend.ObjectUI.YleisNakyma;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 
 
 public class Sivut extends Application {
@@ -43,7 +43,7 @@ public class Sivut extends Application {
     private Scene SCENE4;
 
     /**
-     * Metodi liittää kolme ikkunaa niille kuuluviin metodeihin sekä määrittelee käynnistyksen.
+     * Metodi liittää neljä ikkunaa niille kuuluviin metodeihin sekä määrittelee käynnistyksen.
      */
 
     HashMap<String, String> asiakas_params = new HashMap<>();
@@ -193,6 +193,34 @@ public class Sivut extends Application {
         paneeli2.setAlignment(Pos.TOP_CENTER);
         paneeli2.setHgap(10);
         paneeli2.setVgap(20);
+
+        Label tervetuloa = new Label("Mokin varausjärjestelmä");     //Otsikko ja sen määrittely.
+        tervetuloa.setFont(Font.font("Calibri", FontWeight.BOLD, 20));
+        paneeli2.add(tervetuloa, 1,0);
+
+        Button varaa = new Button("Varaa");
+        paneeli2.add(varaa, 3, 3);
+
+        BorderPane mokintiedot = new BorderPane();
+        paneeli2.add(mokintiedot, 3, 3);
+
+        TableView tb = new TableView<>();
+        TableColumn<etunimi, String> etunimiStringTableColumn   =
+                asiakas_params.get("etunimi");
+        TableColumn<sukunimi, String> sukunimiStringTableColumn =
+                new TableColumn<>("Sukunimi");
+        TableColumn<osoite, String> osoiteStringTableColumn =
+                new TableColumn<>("Osoite");
+        TableColumn<postinumero, String> postinumeroStringTableColumn  =
+                new TableColumn<>("First Name");
+        TableColumn<puhelinnumero, String> puhelinnumeroStringTableColumn   =
+                new TableColumn<>("Last Name");
+        TableColumn<sahkoposti, String> sahkopostiStringTableColumn =
+                new TableColumn<>("Last Name");
+
+        varaa.setOnAction(e -> {
+
+        });
 
         SCENE2 = new Scene(paneeli2, 600,400);
         return SCENE2;
