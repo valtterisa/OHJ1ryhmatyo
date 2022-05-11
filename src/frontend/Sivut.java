@@ -57,7 +57,7 @@ public class Sivut extends Application {
         SCENE4 = NeljasSivu(paaIkkuna);
 
         paaIkkuna.setTitle("Mökkien varausjärjestelmä");
-        paaIkkuna.setScene(SCENE1);
+        paaIkkuna.setScene(SCENE4);
         // paaIkkuna.setScene(SCENE3);
         paaIkkuna.show();
     }

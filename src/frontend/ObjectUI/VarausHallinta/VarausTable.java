@@ -31,10 +31,10 @@ public class VarausTable extends TableView<Varaus> {
 
         TableColumn<Varaus, List> col12 = new TableColumn<>("Palvelut");
 
-        col0.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getVaraus_id()));
-        col1.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getMokki().getMokki_id()));
+        col0.setCellValueFactory(cellData -> new SimpleIntegerProperty(Integer.parseInt(cellData.getValue().getVaraus_id())));
+        col1.setCellValueFactory(cellData -> new SimpleIntegerProperty(Integer.parseInt(cellData.getValue().getMokki().getMokki_id())));
         col2.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMokki().getMokkinimi()));
-        col3.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getAsiakas().getAsiakas_id()));
+        col3.setCellValueFactory(cellData -> new SimpleIntegerProperty(Integer.parseInt(cellData.getValue().getAsiakas().getAsiakas_id())));
         col4.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAsiakas().getEtunimi()));
         col5.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAsiakas().getSukunimi()));
         col6.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAsiakas().getPuhelinnro()));
