@@ -25,6 +25,7 @@ import java.util.HashMap;
 
 
 public class Sivut extends Application {
+    private Stage STAGE;
     /**
      * Ensimmäinen ikkuna.
      */
@@ -49,7 +50,7 @@ public class Sivut extends Application {
     HashMap<String, String> asiakas_params = new HashMap<>();
 
     public void start(Stage paaIkkuna)  {
-
+        STAGE = paaIkkuna;
         SCENE1 = EnsimmainenSivu();
         SCENE2 = ToinenSivu();
         SCENE3 = KolmasSivu();
@@ -212,6 +213,14 @@ public class Sivut extends Application {
 
         });
 
+        Button nappainSEURAAVA = new Button("Seuraava");
+        nappainSEURAAVA.setOnAction(e -> switchScenes(SCENE3));
+        paneeli2.add(nappainSEURAAVA, 1,9);
+
+        Button nappainEDELLINEN = new Button("Edellinen");
+        nappainEDELLINEN.setOnAction(e -> switchScenes(SCENE1));
+        paneeli2.add(nappainEDELLINEN, 0, 9);
+
         SCENE2 = new Scene(paneeli2, 600,400);
         return SCENE2;
     }
@@ -320,7 +329,9 @@ public class Sivut extends Application {
         SCENE4 = new Scene(paneeli4, 600,400);
         return SCENE4;
     }
-
+    public void switchScenes(Scene scene) {
+        STAGE.setScene(scene);
+    }
     public static void main(String[] args) {
         launch();
     }
