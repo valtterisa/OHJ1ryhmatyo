@@ -1,5 +1,6 @@
 package src.frontend;
 
+import java.awt.event.ActionEvent;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import javafx.util.Callback;
 import javafx.util.StringConverter;
 import org.w3c.dom.Text;
 import src.backend.api.BackendAPI;
+import java.util.HashMap;
 import src.frontend.ObjectUI.YleisNakyma;
 
 
@@ -43,6 +45,9 @@ public class Sivut extends Application {
     /**
      * Metodi liittää kolme ikkunaa niille kuuluviin metodeihin sekä määrittelee käynnistyksen.
      */
+
+    HashMap<String, String> asiakas_params = new HashMap<>();
+
     public void start(Stage paaIkkuna)  {
 
         SCENE1 = EnsimmainenSivu();
@@ -243,7 +248,35 @@ public class Sivut extends Application {
         maksa.setText("Maksa");
 
 
+        maksa.setOnAction(e-> {
+            String Etunimi = tekstikentta2.getText();
+            String Sukunimi = tekstikentta3.getText();
+            String Postinumero = tekstikentta4.getText();
+            String Osoite = tekstikentta5.getText();
+            String Puhelinnumero = tekstikentta6.getText();
+            String Sahkoposti = tekstikentta7.getText();
 
+            if (Etunimi.length() > 0) {
+                asiakas_params.put("etunimi", Etunimi);
+            }
+            if (Sukunimi.length() > 0) {
+                asiakas_params.put("sukunimi", Sukunimi);
+            }
+            if (Postinumero.length() > 0) {
+                asiakas_params.put("postinro", Postinumero);
+            }
+            if (Osoite.length() > 0) {
+                asiakas_params.put("lahiosoite", Osoite);
+            }
+            if (Puhelinnumero.length() > 0) {
+                asiakas_params.put("puhelinnro", Puhelinnumero);
+            }
+            if (Sahkoposti.length() > 0) {
+                asiakas_params.put("email", Sahkoposti);
+            }
+        BackendAPI.postAsiakas(asiakas_params);
+
+        });
 
 
 
