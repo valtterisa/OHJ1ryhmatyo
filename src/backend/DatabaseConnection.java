@@ -11,7 +11,7 @@ public class   DatabaseConnection {
     private static final String DATABASE_DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/vn";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "root";
+    private static final String PASSWORD = "rootroot";
     private static final String MAX_POOL = "250";
 
     private Connection connection;
