@@ -194,23 +194,23 @@ public class Sivut extends Application {
         TableView<Mokki> vapaatMokit = new TableView<Mokki>();
 
         TableColumn<Mokki, String> otsikko1 = new TableColumn<>("Mökki_id");
-        otsikko1.setCellValueFactory(new PropertyValueFactory<>(""));
-        otsikko1.setPrefWidth(30);
+        otsikko1.setCellValueFactory(new PropertyValueFactory<>("mokki_id"));
+        otsikko1.setPrefWidth(100);
 
         TableColumn<Mokki, String> otsikko2 = new TableColumn<>("Alue-id");
-        otsikko2.setCellValueFactory(new PropertyValueFactory<>("pelaajanNimi"));
+        otsikko2.setCellValueFactory(new PropertyValueFactory<>("alue_id"));
         otsikko2.setPrefWidth(120);
 
         TableColumn<Mokki, String> otsikko3 = new TableColumn<>("Postinumero");
-        otsikko3.setCellValueFactory(new PropertyValueFactory<>("pelaajanKansallisuus"));
+        otsikko3.setCellValueFactory(new PropertyValueFactory<>("postinro"));
         otsikko3.setPrefWidth(110);
 
         TableColumn<Mokki, String> otsikko4 = new TableColumn<>("Mökin nimi");
-        otsikko4.setCellValueFactory(new PropertyValueFactory<>("pelaajanElo"));
+        otsikko4.setCellValueFactory(new PropertyValueFactory<>("mokkinimi"));
         otsikko4.setPrefWidth(100);
 
         TableColumn<Mokki, String> otsikko5 = new TableColumn<>("Hinta");
-        otsikko5.setCellValueFactory(new PropertyValueFactory<>("pelaajanIka"));
+        otsikko5.setCellValueFactory(new PropertyValueFactory<>("hinta"));
         otsikko5.setPrefWidth(100);
 
         TableColumn<Mokki, String> otsikko6 = new TableColumn<>("Kuvaus");
@@ -247,6 +247,9 @@ public class Sivut extends Application {
 
         searchButton.setOnAction(e -> {
 
+            // tyhjentää kolumnit haku-nappia painaessa
+            vapaatMokit.getItems().clear();
+
             // valitut arvot parametreiksi ja haku kannasta
             HashMap<String, String> alue = new HashMap<String, String>();
             alue.put("nimi", location.getValue());
@@ -261,27 +264,19 @@ public class Sivut extends Application {
             // haetaan mökit tietyllä alued_id ja laitetaan TableViewiin
             ArrayList<Mokki> mokit = MokkiFunctions.getMokki(mokitAlue);
             
-            HashMap<String, String> varauksenParam = new HashMap<String, String>();
-
-
 
             for (Mokki x : mokit) {
                 vapaatMokit.getItems().add(x);
             }
-
-            // checkInDatePicker = alkamispäivä ja checkOutDatePicker = päättymispäivä --> jos
-            // alkupvm mokki_id varauksella sama kuin alkamispäivä -> ei näytä mökkiä
-            // valittuja mokki_id ei voi olla varauksessa aikavälillä xxxx-xx-xx - xxxx-xx-xx
-            // pitää hakea kaikkien varauksien mokki_mokki_id ja verrata haluttuihin mökkeihin aikavälillä
-            // hakee vain sellaiset mökit jotka toteuttavat ehdon
-
         });
 
+        // nappi SCENE:n vaihtoon
         Button nappainSEURAAVA = new Button("Seuraava");
         nappainSEURAAVA.setOnAction(e -> switchScenes(SCENE2));
 
         // tableview tässä boksissa
         HBox tableview = new HBox();
+        tableview.setPadding(new Insets(0,0,0,10));
         tableview.getChildren().add(vapaatMokit);
 
         // paneeli jossa yhdistetään kaksi HBoxia
@@ -289,7 +284,7 @@ public class Sivut extends Application {
         paneeli1.setMinSize(700, 400);
         paneeli1.getChildren().addAll(paneeli,tableview,nappainSEURAAVA);
 
-        SCENE1 = new Scene(paneeli1, 700,400);
+        SCENE1 = new Scene(paneeli1, 750,400);
         return SCENE1;
     }
 
