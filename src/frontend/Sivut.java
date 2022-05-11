@@ -86,8 +86,6 @@ public class Sivut extends Application {
         sivu3.setOnAction(e-> paaIkkuna.setScene(SCENE3));
         sivu4.setOnAction(e-> paaIkkuna.setScene(SCENE4));
 
-
-
         paaIkkuna.setTitle("Mökkien varausjärjestelmä");
         paaIkkuna.setScene(SCENE1);
         // paaIkkuna.setScene(SCENE3);
@@ -186,11 +184,6 @@ public class Sivut extends Application {
                                     "Molestie"
         );
 
-        // TODO
-        // paikkakuntien haku comboboksiin (näkymä joka hakee kaikki paikkakunnat -> paikkakunnat listaan)
-        // tieto hashmappiin ja haku kannasta tietojen täsmätessä
-        // metodeihin pilkkominen
-
         TableView<Mokki> vapaatMokit = new TableView<Mokki>();
 
         TableColumn<Mokki, String> otsikko1 = new TableColumn<>("Mökki_id");
@@ -270,33 +263,29 @@ public class Sivut extends Application {
                 mokkiId.add(i.getMokki_id());
             }
 
+            System.out.println(mokkiId);
+
             // haetaan mokki_id perusteella varauksia
             HashMap<String, String> varausParam = new HashMap<String, String>();
             for (String id : mokkiId) {
                 varausParam.put("mokki_mokki_id", id);
             }
 
+            System.out.println(varausParam);
+
             ArrayList<Varaus> varauksetJotkaSopii = VarausFunctions.getVaraus(varausParam);
 
-            // kerätään haluttujen kohteiden alkupvm
-            ArrayList<String> start_dates = new ArrayList<String>();
-            for (Varaus start_date : varauksetJotkaSopii) {
-                start_dates.add(start_date.getVarattu_alkupvm());
-            }
-
-            // kerätään haluttujen kohteiden loppupvm
-            ArrayList<String> end_dates = new ArrayList<String>();
-            for (Varaus end_date : varauksetJotkaSopii) {
-                end_dates.add(end_date.getVarattu_loppupvm());
-            }
-
-            
-
-            System.out.println(start_dates);
-            System.out.println(end_dates);
+            System.out.println(varauksetJotkaSopii);
 
             for (Mokki x : mokit) {
-                vapaatMokit.getItems().add(x);
+                Date start_date = new Date();
+                Date end_date;
+                // pitäskö kannassa olla aikamuodossa Stringin sijaan? vertailu ei muuten toimi...
+                if (!(start_date.before(checkInDatePicker.getValue()) || end_date.after(checkOutDatePicker.getValue()))) {
+                    vapaatMokit.getItems().add(x);
+                } else {
+                    continue;
+                }
             }
         });
 
