@@ -276,7 +276,7 @@ public class Sivut extends Application {
         paneeli2.add(tervetuloa, 1,0);
 
         Button varaa = new Button("Varaa");
-        paneeli2.add(varaa, 3, 3);
+        paneeli2.add(varaa, 2, 9);
 
         MokkiTable table = new MokkiTable();
 
@@ -288,6 +288,8 @@ public class Sivut extends Application {
         for (Mokki x : Mokit) {
             table.getItems().add(x);
         }
+
+        paneeli2.getChildren().add(table);
 
         varaa.setOnAction(e -> {
             switchScenes(SCENE3);
