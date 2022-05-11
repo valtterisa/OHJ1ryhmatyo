@@ -1,10 +1,5 @@
 package src.frontend;
 
-import java.awt.event.ActionEvent;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-
 import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -16,17 +11,26 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import src.backend.api.BackendAPI;
 import src.backend.datatypes.Mokki;
-
-import java.util.HashMap;
 import src.frontend.ObjectUI.YleisNakyma;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 
 
 public class Sivut extends Application {
+    private Stage STAGE;
     /**
      * Ensimmäinen ikkuna.
      */
@@ -45,13 +49,13 @@ public class Sivut extends Application {
     private Scene SCENE4;
 
     /**
-     * Metodi liittää kolme ikkunaa niille kuuluviin metodeihin sekä määrittelee käynnistyksen.
+     * Metodi liittää neljä ikkunaa niille kuuluviin metodeihin sekä määrittelee käynnistyksen.
      */
 
     HashMap<String, String> asiakas_params = new HashMap<>();
 
     public void start(Stage paaIkkuna)  {
-
+        STAGE = paaIkkuna;
         SCENE1 = EnsimmainenSivu();
         SCENE2 = ToinenSivu();
         SCENE3 = KolmasSivu();
@@ -238,6 +242,32 @@ public class Sivut extends Application {
         paneeli2.setHgap(10);
         paneeli2.setVgap(20);
 
+        Label tervetuloa = new Label("Mokin varausjärjestelmä");     //Otsikko ja sen määrittely.
+        tervetuloa.setFont(Font.font("Calibri", FontWeight.BOLD, 20));
+        paneeli2.add(tervetuloa, 1,0);
+
+        Button varaa = new Button("Varaa");
+        paneeli2.add(varaa, 3, 3);
+
+        BorderPane mokintiedot = new BorderPane();
+        paneeli2.add(mokintiedot, 3, 3);
+
+        TableView tb = new TableView<>();
+
+        mokintiedot.setCenter(tb);
+
+        varaa.setOnAction(e -> {
+
+        });
+
+        Button nappainSEURAAVA = new Button("Seuraava");
+        nappainSEURAAVA.setOnAction(e -> switchScenes(SCENE3));
+        paneeli2.add(nappainSEURAAVA, 1,9);
+
+        Button nappainEDELLINEN = new Button("Edellinen");
+        nappainEDELLINEN.setOnAction(e -> switchScenes(SCENE1));
+        paneeli2.add(nappainEDELLINEN, 0, 9);
+
         SCENE2 = new Scene(paneeli2, 600,400);
         return SCENE2;
     }
@@ -346,7 +376,9 @@ public class Sivut extends Application {
         SCENE4 = new Scene(paneeli4, 600,400);
         return SCENE4;
     }
-
+    public void switchScenes(Scene scene) {
+        STAGE.setScene(scene);
+    }
     public static void main(String[] args) {
         launch();
     }
