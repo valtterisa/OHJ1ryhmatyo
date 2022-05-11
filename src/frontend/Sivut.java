@@ -58,11 +58,43 @@ public class Sivut extends Application {
         SCENE3 = KolmasSivu();
         SCENE4 = NeljasSivu(paaIkkuna);
 
+        Pane paneeli5 = new Pane();
+        Scene aloitus = new Scene(paneeli5);
+        VBox box = new VBox();
+        box.setPadding(new Insets(65));
+        box.setAlignment(Pos.CENTER);
+
+        HBox napit_paneeli5 = new HBox(15);
+        napit_paneeli5.setAlignment(Pos.CENTER);
+        napit_paneeli5.setPadding(new Insets(15,5,5,15));
+        Button sivu1 = new Button("Sivu 1");
+        Button sivu2 = new Button("Sivu 2 ");
+        Button sivu3 = new Button("Sivu 3");
+        Button sivu4 = new Button("Admin");
+        napit_paneeli5.getChildren().addAll(sivu1,sivu3,sivu2,sivu4);
+        box.getChildren().add(napit_paneeli5);
+        paneeli5.getChildren().add(box);
+
+        sivu1.setOnAction(e->{
+            paaIkkuna.setScene(SCENE1);
+        });
+        sivu2.setOnAction(e->{
+            paaIkkuna.setScene(SCENE2);
+        });
+        sivu3.setOnAction(e->{
+            paaIkkuna.setScene(SCENE3);
+        });
+        sivu4.setOnAction(e->{
+            paaIkkuna.setScene(SCENE4);
+        });
+
+
+
         paaIkkuna.setTitle("Mökkien varausjärjestelmä");
-        paaIkkuna.setScene(SCENE4);
-        // paaIkkuna.setScene(SCENE3);
+        paaIkkuna.setScene(aloitus);
         paaIkkuna.show();
     }
+
     private Scene EnsimmainenSivu() {
 
         DatePicker checkInDatePicker = new DatePicker();
