@@ -17,12 +17,10 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import src.backend.api.BackendAPI;
-import src.backend.datatypes.Varaus;
 import src.frontend.ObjectUI.YleisNakyma;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -202,42 +200,22 @@ public class Sivut extends Application {
         paneeli2.add(tervetuloa, 1,0);
 
         Button varaa = new Button("Varaa");
-        paneeli2.add(varaa, 4, 4);
+        paneeli2.add(varaa, 3, 3);
 
         BorderPane mokintiedot = new BorderPane();
         paneeli2.add(mokintiedot, 3, 3);
 
         TableView tb = new TableView<>();
 
-        TableColumn<Varaus, String> col1 = new TableColumn<>("mökin id");
-        TableColumn<Varaus, String> col2 = new TableColumn<>("mökin nimi");
-        TableColumn<Varaus, String> col3 = new TableColumn<>("etunimi");
-        TableColumn<Varaus, String> col4 = new TableColumn<>("sukunimi");
-        TableColumn<Varaus, String> col5 = new TableColumn<>("puhelinnro");
-        TableColumn<Varaus, String> col6 = new TableColumn<>("sähköposti");
-
-        tb.getColumns().add(col1);
-        tb.getColumns().add(col2);
-        tb.getColumns().add(col3);
-        tb.getColumns().add(col4);
-        tb.getColumns().add(col5);
-        tb.getColumns().add(col6);
-
-        tb.getItems().clear();
-
-        ArrayList<Varaus> varaukset = BackendAPI.getVarausTiedoilla(asiakas_params);
-        System.out.println(varaukset);
-        for (Varaus x : varaukset) {
-            tb.getItems().add(x);
-
-        }
-        tb.refresh();
-
         mokintiedot.setCenter(tb);
 
         varaa.setOnAction(e -> {
-            switchScenes(SCENE3);
+
         });
+
+        Button nappainSEURAAVA = new Button("Seuraava");
+        nappainSEURAAVA.setOnAction(e -> switchScenes(SCENE3));
+        paneeli2.add(nappainSEURAAVA, 1,9);
 
         Button nappainEDELLINEN = new Button("Edellinen");
         nappainEDELLINEN.setOnAction(e -> switchScenes(SCENE1));

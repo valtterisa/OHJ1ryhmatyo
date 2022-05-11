@@ -15,7 +15,7 @@ public class AlueTable extends TableView<Alue> {
         TableColumn<Alue, Number> col1 = new TableColumn<>("Alue_Id");
         TableColumn<Alue, String> col2 = new TableColumn<>("Alue");
 
-        col1.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getId()));
+        col1.setCellValueFactory(cellData -> new SimpleIntegerProperty(Integer.parseInt(cellData.getValue().getId())));
         col2.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNimi()));
 
         this.getColumns().addAll(col1, col2);

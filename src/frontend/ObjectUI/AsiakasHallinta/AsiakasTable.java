@@ -21,7 +21,7 @@ public class AsiakasTable extends TableView<Asiakas> {
         TableColumn<Asiakas, String> col7 = new TableColumn<>("S.posti");
         TableColumn<Asiakas, String> col8 = new TableColumn<>("Puhelinnro");
 
-        col1.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getAsiakas_id()));
+        col1.setCellValueFactory(cellData -> new SimpleIntegerProperty(Integer.parseInt(cellData.getValue().getAsiakas_id())));
         col2.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEtunimi()));
         col3.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSukunimi()));
         col4.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLahiosoite()));
