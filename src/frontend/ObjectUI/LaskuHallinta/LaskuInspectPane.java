@@ -9,9 +9,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import src.backend.datatypes.Lasku;
 import src.backend.datatypes.VarauksenPalvelu;
-import src.frontend.ObjectUI.AsiakasHallinta.AsiakasDeleteNakyma;
-import src.frontend.ObjectUI.AsiakasHallinta.AsiakasEditNakyma;
-import src.frontend.ObjectUI.AsiakasHallinta.AsiakasHallintaNakyma;
+import src.frontend.ObjectUI.LaskuHallinta.LaskuGenerator.LaskuGenerator;
 
 public class LaskuInspectPane extends VBox {
 
@@ -19,12 +17,14 @@ public class LaskuInspectPane extends VBox {
     private Button editButton;
     private Button closeButton;
     private Button deleteButton;
+    private Button sendButton;
 
     public LaskuInspectPane(Lasku selectedItem) {
         this.selectedLasku = selectedItem;
         this.editButton = new Button("Muokkaa valittua laskua");
         this.closeButton = new Button("X");
         this.deleteButton = new Button("Poista valittu lasku");
+        this.sendButton = new Button("Lähetä lasku");
 
         generateActions();
         construct();
@@ -70,7 +70,7 @@ public class LaskuInspectPane extends VBox {
 
 
             //this.getChildren().addAll(laskuInfo, editButton, deleteButton, closeButton);
-            this.getChildren().addAll(laskuInfo, deleteButton, closeButton);
+            this.getChildren().addAll(laskuInfo, deleteButton, sendButton, closeButton);
         }
     }
 
@@ -96,6 +96,9 @@ public class LaskuInspectPane extends VBox {
             this.getChildren().removeAll(this.getChildren());
             LaskuHallintaNakyma parent = (LaskuHallintaNakyma) this.getParent();
             parent.getTable().getSelectionModel().clearSelection();
+        });
+        this.sendButton.setOnAction(e -> {
+            LaskuGenerator.sendlasku(this.selectedLasku);
         });
     }
 
