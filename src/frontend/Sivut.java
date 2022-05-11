@@ -71,22 +71,14 @@ public class Sivut extends Application {
         Button sivu2 = new Button("Sivu 2 ");
         Button sivu3 = new Button("Sivu 3");
         Button sivu4 = new Button("Admin");
-        napit_paneeli5.getChildren().addAll(sivu1,sivu3,sivu2,sivu4);
+        napit_paneeli5.getChildren().addAll(sivu1,sivu2,sivu3,sivu4);
         box.getChildren().add(napit_paneeli5);
         paneeli5.getChildren().add(box);
 
-        sivu1.setOnAction(e->{
-            paaIkkuna.setScene(SCENE1);
-        });
-        sivu2.setOnAction(e->{
-            paaIkkuna.setScene(SCENE2);
-        });
-        sivu3.setOnAction(e->{
-            paaIkkuna.setScene(SCENE3);
-        });
-        sivu4.setOnAction(e->{
-            paaIkkuna.setScene(SCENE4);
-        });
+        sivu1.setOnAction(e-> paaIkkuna.setScene(SCENE1));
+        sivu2.setOnAction(e-> paaIkkuna.setScene(SCENE2));
+        sivu3.setOnAction(e-> paaIkkuna.setScene(SCENE3));
+        sivu4.setOnAction(e-> paaIkkuna.setScene(SCENE4));
 
 
 
@@ -347,14 +339,26 @@ public class Sivut extends Application {
         tekstikentta7.setLayoutY(275.0);
         tekstikentta7.setPromptText("Sähköposti");
 
-        TextField tekstikenttä_hinta = new TextField();
-        tekstikenttä_hinta.setLayoutX(375);
-        tekstikenttä_hinta.setLayoutY(205);
+        TextField tekstikentta_hinta = new TextField();
+        tekstikentta_hinta.setLayoutX(375);
+        tekstikentta_hinta.setLayoutY(205);
 
-        Button maksa = new Button();
+        Button maksa = new Button("Maksa");
         maksa.setLayoutX(420);
         maksa.setLayoutY(240);
-        maksa.setText("Maksa");
+
+
+        Button nappainSEURAAVA3 = new Button("Seuraava");
+        nappainSEURAAVA3.setOnAction(e -> switchScenes(SCENE4));
+
+        Button nappainEDELLINEN3 = new Button("Edellinen");
+        nappainEDELLINEN3.setOnAction(e -> switchScenes(SCENE2));
+
+        nappainEDELLINEN3.setLayoutX(0);
+        nappainEDELLINEN3.setLayoutY(375);
+
+        nappainSEURAAVA3.setLayoutX(535);
+        nappainSEURAAVA3.setLayoutY(375);
 
 
         maksa.setOnAction(e-> {
@@ -390,10 +394,10 @@ public class Sivut extends Application {
 
 
 
-
-
         paneeli3.getChildren().addAll(tekstikentta1,tekstikentta2,tekstikentta6
-                ,tekstikentta3,tekstikentta4,tekstikentta5,tekstikentta7,tekstikenttä_hinta,maksa);
+                ,tekstikentta3,tekstikentta4,tekstikentta5,tekstikentta7,tekstikentta_hinta,maksa);
+        paneeli3.getChildren().addAll(nappainEDELLINEN3,nappainSEURAAVA3);
+
 
 
         SCENE3 = new Scene(paneeli3, 600,400);
