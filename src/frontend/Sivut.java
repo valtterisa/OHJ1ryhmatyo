@@ -205,18 +205,8 @@ public class Sivut extends Application {
         paneeli2.add(mokintiedot, 3, 3);
 
         TableView tb = new TableView<>();
-        TableColumn<etunimi, String> etunimiStringTableColumn   =
-                asiakas_params.get("etunimi");
-        TableColumn<sukunimi, String> sukunimiStringTableColumn =
-                new TableColumn<>("Sukunimi");
-        TableColumn<osoite, String> osoiteStringTableColumn =
-                new TableColumn<>("Osoite");
-        TableColumn<postinumero, String> postinumeroStringTableColumn  =
-                new TableColumn<>("First Name");
-        TableColumn<puhelinnumero, String> puhelinnumeroStringTableColumn   =
-                new TableColumn<>("Last Name");
-        TableColumn<sahkoposti, String> sahkopostiStringTableColumn =
-                new TableColumn<>("Last Name");
+
+        mokintiedot.setCenter(tb);
 
         varaa.setOnAction(e -> {
 
