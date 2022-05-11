@@ -18,21 +18,7 @@ import java.util.HashMap;
 
 public class App extends Application {
     public static void main(String[] args) {
-        //launch(args);
-        /*HashMap<String, String> params = new HashMap<>();
-        params.put("mokki_id", "10");
-        Varaus varaus = BackendAPI.getVarausTiedoilla(new HashMap<>(), params, new HashMap<>()).get(0);
-        System.out.println(varaus);*/
-
-        /*ArrayList<String> mokkiId = new ArrayList<String>();
-        ArrayList<Mokki> mokit = BackendAPI.getMokki(new HashMap<>());
-        int index = 0;
-        for (Mokki i : mokit) {
-            System.out.println(i);
-            mokkiId.add(i.getMokki_id());
-            index++;
-        }*/
-
+        launch(args);
 
     }
 
@@ -41,9 +27,9 @@ public class App extends Application {
         /*Scene scene = new Scene(new YleisNakyma(stage));
         stage.setScene(scene);
         stage.setTitle("Village Newbies - Yleisnäkymä");*/
-
+/*
         WebView webView = new WebView();
-        webView.getEngine().loadContent(LaskuGenerator.generateLasku(BackendAPI.getLasku(new HashMap<>()).get(0)));
+        webView.getEngine().loadContent(LaskuGenerator.generateLasku(BackendAPI.getLasku(new HashMap<>()).get(0)));*/
 
         stage.show();
     }

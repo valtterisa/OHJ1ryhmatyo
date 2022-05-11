@@ -18,6 +18,7 @@ public class LaskuInspectPane extends VBox {
     private Button closeButton;
     private Button deleteButton;
     private Button sendButton;
+    private Button printButton;
 
     public LaskuInspectPane(Lasku selectedItem) {
         this.selectedLasku = selectedItem;
@@ -25,6 +26,7 @@ public class LaskuInspectPane extends VBox {
         this.closeButton = new Button("X");
         this.deleteButton = new Button("Poista valittu lasku");
         this.sendButton = new Button("Lähetä lasku");
+        this.printButton = new Button("Tulosta lasku");
 
         generateActions();
         construct();
@@ -70,7 +72,7 @@ public class LaskuInspectPane extends VBox {
 
 
             //this.getChildren().addAll(laskuInfo, editButton, deleteButton, closeButton);
-            this.getChildren().addAll(laskuInfo, deleteButton, sendButton, closeButton);
+            this.getChildren().addAll(laskuInfo, deleteButton, printButton, sendButton, closeButton);
         }
     }
 
@@ -99,6 +101,9 @@ public class LaskuInspectPane extends VBox {
         });
         this.sendButton.setOnAction(e -> {
             LaskuGenerator.sendlasku(this.selectedLasku);
+        });
+        this.printButton.setOnAction(e -> {
+            LaskuGenerator.openlasku(this.selectedLasku);
         });
     }
 
