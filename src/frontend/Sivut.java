@@ -20,14 +20,19 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
+import src.backend.api.AlueFunctions;
 import src.backend.api.BackendAPI;
 import src.backend.api.MokkiFunctions;
+import src.backend.api.VarausFunctions;
+import src.backend.datatypes.Alue;
 import src.backend.datatypes.Mokki;
+import src.backend.datatypes.Varaus;
 import src.frontend.ObjectUI.YleisNakyma;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 
@@ -64,7 +69,7 @@ public class Sivut extends Application {
         SCENE4 = NeljasSivu(paaIkkuna);
 
         paaIkkuna.setTitle("Mökkien varausjärjestelmä");
-        paaIkkuna.setScene(SCENE4);
+        paaIkkuna.setScene(SCENE1);
         // paaIkkuna.setScene(SCENE3);
         paaIkkuna.show();
     }
@@ -183,12 +188,12 @@ public class Sivut extends Application {
         otsikko5.setPrefWidth(100);
 
         TableColumn<Mokki, String> otsikko6 = new TableColumn<>("Kuvaus");
-        otsikko5.setCellValueFactory(new PropertyValueFactory<>("kuvaus"));
-        otsikko5.setPrefWidth(100);
+        otsikko6.setCellValueFactory(new PropertyValueFactory<>("kuvaus"));
+        otsikko6.setPrefWidth(100);
 
         TableColumn<Mokki, String> otsikko7 = new TableColumn<>("Henkilömäärä");
-        otsikko5.setCellValueFactory(new PropertyValueFactory<>("henkilomaara"));
-        otsikko5.setPrefWidth(100);
+        otsikko7.setCellValueFactory(new PropertyValueFactory<>("henkilomaara"));
+        otsikko7.setPrefWidth(100);
 
         // lisätään luodut columnit/otsikot rankingLista-tableen
         vapaatMokit.getColumns().add(otsikko1);
@@ -215,30 +220,50 @@ public class Sivut extends Application {
         paneeli.getChildren().add(searchButton);
 
         searchButton.setOnAction(e -> {
-            System.out.println("check-in: " + checkInDatePicker.getValue());
-            System.out.println("check-out: " + checkOutDatePicker.getValue());
-            System.out.println("Sijainti: " + location.getValue());
 
             // valitut arvot parametreiksi ja haku kannasta
             HashMap<String, String> alue = new HashMap<String, String>();
             alue.put("nimi", location.getValue());
             
-            ArrayList<Mokki> mokit = MokkiFunctions.getMokki(alue);
+            // haetaan alue ja otetaan alue_id talteen
+            ArrayList<Alue> haettavaAlue = AlueFunctions.getAlue(alue);
+            String haluttuId = haettavaAlue.get(0).getId();
+
+            HashMap<String, String> mokitAlue = new HashMap<String, String>();
+            mokitAlue.put("alue_id", haluttuId);
+
+            // haetaan mökit tietyllä alued_id ja laitetaan TableViewiin
+            ArrayList<Mokki> mokit = MokkiFunctions.getMokki(mokitAlue);
+            
+            HashMap<String, String> varauksenParam = new HashMap<String, String>();
+
+
+
             for (Mokki x : mokit) {
                 vapaatMokit.getItems().add(x);
             }
 
+            // checkInDatePicker = alkamispäivä ja checkOutDatePicker = päättymispäivä --> jos
+            // alkupvm mokki_id varauksella sama kuin alkamispäivä -> ei näytä mökkiä
+            // valittuja mokki_id ei voi olla varauksessa aikavälillä xxxx-xx-xx - xxxx-xx-xx
+            // pitää hakea kaikkien varauksien mokki_mokki_id ja verrata haluttuihin mökkeihin aikavälillä
+            // hakee vain sellaiset mökit jotka toteuttavat ehdon
+
         });
+
+        Button nappainSEURAAVA = new Button("Seuraava");
+        nappainSEURAAVA.setOnAction(e -> switchScenes(SCENE2));
 
         // tableview tässä boksissa
         HBox tableview = new HBox();
         tableview.getChildren().add(vapaatMokit);
 
         // paneeli jossa yhdistetään kaksi HBoxia
-        VBox root = new VBox(5);
-        root.getChildren().addAll(paneeli,tableview);
+        VBox paneeli1 = new VBox(5);
+        paneeli1.setMinSize(700, 400);
+        paneeli1.getChildren().addAll(paneeli,tableview,nappainSEURAAVA);
 
-        SCENE1 = new Scene(root, 700,400);
+        SCENE1 = new Scene(paneeli1, 700,400);
         return SCENE1;
     }
 
@@ -358,11 +383,14 @@ public class Sivut extends Application {
         BackendAPI.postAsiakas(asiakas_params);
 
         });
+        // TODO näille napeille välit
+        Button nappainSEURAAVA = new Button("Seuraava");
+        nappainSEURAAVA.setOnAction(e -> switchScenes(SCENE4));
+        paneeli3.getChildren().add(nappainSEURAAVA);
 
-
-
-
-
+        Button nappainEDELLINEN = new Button("Edellinen");
+        nappainEDELLINEN.setOnAction(e -> switchScenes(SCENE2));
+        paneeli3.getChildren().add(nappainEDELLINEN);
 
         paneeli3.getChildren().addAll(tekstikentta1,tekstikentta2,tekstikentta6
                 ,tekstikentta3,tekstikentta4,tekstikentta5,tekstikentta7,tekstikenttä_hinta,maksa);
