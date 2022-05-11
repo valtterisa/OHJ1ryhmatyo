@@ -4,9 +4,13 @@ import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -17,6 +21,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import src.backend.api.BackendAPI;
+import src.backend.datatypes.Mokki;
 import src.frontend.ObjectUI.YleisNakyma;
 
 import java.time.LocalDate;
@@ -91,6 +96,8 @@ public class Sivut extends Application {
         };             
         checkInDatePicker.setConverter(converter);
         checkInDatePicker.setPromptText(pattern.toLowerCase());
+        checkOutDatePicker.setConverter(converter);
+        checkOutDatePicker.setPromptText(pattern.toLowerCase());
         
         // varauksen ajankohdan valinta
         checkInDatePicker.setValue(LocalDate.now());
@@ -116,7 +123,6 @@ public class Sivut extends Application {
         checkOutDatePicker.setValue(checkInDatePicker.getValue().plusDays(1));
 
         HBox paneeli = new HBox(5);  //Luodaan paneeli ensimmäiselle sivulle ja määritellään se
-        paneeli.setMinSize(200, 200);
         paneeli.setAlignment(Pos.TOP_CENTER);
         paneeli.setPadding(new Insets(5,0,0,0));
 
@@ -157,6 +163,45 @@ public class Sivut extends Application {
         // tieto hashmappiin ja haku kannasta tietojen täsmätessä
         // metodeihin pilkkominen
 
+        TableView<Mokki> vapaatMokit = new TableView<Mokki>();
+
+        TableColumn<Mokki, String> otsikko1 = new TableColumn<>("Mökki_id");
+        otsikko1.setCellValueFactory(new PropertyValueFactory<>(""));
+        otsikko1.setPrefWidth(30);
+
+        TableColumn<Mokki, String> otsikko2 = new TableColumn<>("Alue-id");
+        otsikko2.setCellValueFactory(new PropertyValueFactory<>("pelaajanNimi"));
+        otsikko2.setPrefWidth(120);
+
+        TableColumn<Mokki, String> otsikko3 = new TableColumn<>("Postinumero");
+        otsikko3.setCellValueFactory(new PropertyValueFactory<>("pelaajanKansallisuus"));
+        otsikko3.setPrefWidth(110);
+
+        TableColumn<Mokki, String> otsikko4 = new TableColumn<>("Mökin nimi");
+        otsikko4.setCellValueFactory(new PropertyValueFactory<>("pelaajanElo"));
+        otsikko4.setPrefWidth(100);
+
+        TableColumn<Mokki, String> otsikko5 = new TableColumn<>("Hinta");
+        otsikko5.setCellValueFactory(new PropertyValueFactory<>("pelaajanIka"));
+        otsikko5.setPrefWidth(100);
+
+        TableColumn<Mokki, String> otsikko6 = new TableColumn<>("Kuvaus");
+        otsikko5.setCellValueFactory(new PropertyValueFactory<>("pelaajanIka"));
+        otsikko5.setPrefWidth(100);
+
+        TableColumn<Mokki, String> otsikko7 = new TableColumn<>("Henkilömäärä");
+        otsikko5.setCellValueFactory(new PropertyValueFactory<>("pelaajanIka"));
+        otsikko5.setPrefWidth(100);
+
+        // lisätään luodut columnit/otsikot rankingLista-tableen
+        vapaatMokit.getColumns().add(otsikko1);
+        vapaatMokit.getColumns().add(otsikko2);
+        vapaatMokit.getColumns().add(otsikko3);
+        vapaatMokit.getColumns().add(otsikko4);
+        vapaatMokit.getColumns().add(otsikko5);
+        vapaatMokit.getColumns().add(otsikko6);
+        vapaatMokit.getColumns().add(otsikko7);
+
         paneeli.getChildren().add(location);
 
         // check-in
@@ -178,13 +223,15 @@ public class Sivut extends Application {
             System.out.println("Sijainti: " + location.getValue());
         });
 
-        GridPane aa = new GridPane();
-        GridPane.setHalignment(aa, HPos.CENTER);
-        GridPane.setValignment(aa, VPos.CENTER);
-        aa.setGridLinesVisible(true);
-        paneeli.getChildren().add(aa);
+        // tableview tässä boksissa
+        HBox aa = new HBox();
+        aa.getChildren().add(vapaatMokit);
 
-        SCENE1 = new Scene(paneeli, 700,400);
+        // paneeli jossa yhdistetään kaksi HBoxia
+        VBox root = new VBox(5);
+        root.getChildren().addAll(paneeli,aa);
+
+        SCENE1 = new Scene(root, 700,400);
         return SCENE1;
     }
 
