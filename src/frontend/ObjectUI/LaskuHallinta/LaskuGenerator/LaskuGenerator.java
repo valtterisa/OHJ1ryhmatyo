@@ -1,6 +1,5 @@
 package src.frontend.ObjectUI.LaskuHallinta.LaskuGenerator;
 
-import javafx.scene.web.WebView;
 import src.backend.api.BackendAPI;
 import src.backend.datatypes.Lasku;
 import src.backend.datatypes.VarauksenPalvelu;
@@ -32,8 +31,9 @@ public class LaskuGenerator {
             writer.close();
 
             Desktop.getDesktop().browse(file.toURI());
-        } catch (Exception e) {
 
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -67,7 +67,12 @@ public class LaskuGenerator {
                 "<p>Tilinumero: FI12345678910 <br/>" +
                 "Viitenumero: 12345678910 <br/>";
 
-        body += "eräpäivä: " + lasku.getVaraus().getVarattu_loppupvm().split(" ")[0];
+        String erapvm = "null";
+        if (lasku.getVaraus().getVarattu_loppupvm() != null) {
+            erapvm = lasku.getVaraus().getVarattu_loppupvm();
+        }
+
+        body += "eräpäivä: " + erapvm.split(" ")[0];
 
         body += "<hr/>Onko jokin tiedoista väärin tai sinulla on kysyttävää? Ota meihin yhteyttä ja kerro varaustunnuksesi: " + lasku.getVaraus().getVaraus_id();
         body += "<br/><br/>Kiitoksia asioinnistanne ja tervetuloa uudelleen!<br/>" +
@@ -109,8 +114,12 @@ public class LaskuGenerator {
                     body += "    " + "Yhteensä:          " + (Double.parseDouble(lasku.getSumma()) + Double.parseDouble(lasku.getAlv())) + "€ " + "%0D%0A";
                 }
                 if (rivi.equals("eräpäivä:")) {
+                    String erapvm = "null";
+                    if (lasku.getVaraus().getVarattu_loppupvm() != null) {
+                        erapvm = lasku.getVaraus().getVarattu_loppupvm();
+                    }
                     body = body.substring(0, body.length() - 6);
-                    body += "    " + lasku.getVaraus().getVarattu_loppupvm().split(" ")[0] + "%0D%0A";
+                    body += "    " + erapvm.split(" ")[0] + "%0D%0A";
                     body += "Onko jokin tiedoista väärin tai sinulla on kysyttävää? Ota meihin yhteyttä ja kerro varaustunnuksesi: " + lasku.getVaraus().getVaraus_id() + "%0D%0A";
                     body += "%0D%0A";
                 }
@@ -133,7 +142,6 @@ public class LaskuGenerator {
     public static void main(String[] args) {
         //sendlasku(BackendAPI.getLasku(new HashMap<>()).get(0));
 
-        //openlasku(BackendAPI.getLasku(new HashMap<>()).get(0));
-
+        openlasku(BackendAPI.getLasku(new HashMap<>()).get(0));
     }
 }
