@@ -24,6 +24,7 @@ import src.backend.datatypes.Alue;
 import src.backend.datatypes.Asiakas;
 import src.backend.datatypes.Mokki;
 import src.backend.datatypes.Varaus;
+import src.frontend.ObjectUI.MokkiHallinta.MokkiInspectPane;
 import src.frontend.ObjectUI.YleisNakyma;
 import src.frontend.ObjectUI.MokkiHallinta.MokkiTable;
 
@@ -80,11 +81,11 @@ public class Sivut extends Application {
         HBox napit_paneeli5 = new HBox(15);
         napit_paneeli5.setAlignment(Pos.CENTER);
         napit_paneeli5.setPadding(new Insets(15,5,5,15));
-        Button sivu1 = new Button("Sivu 1");
+        Button sivu1 = new Button("Tee uusi varaus");
         Button sivu2 = new Button("Sivu 2 ");
         Button sivu3 = new Button("Sivu 3");
         Button sivu4 = new Button("Admin");
-        napit_paneeli5.getChildren().addAll(sivu1,sivu2,sivu3,sivu4);
+        napit_paneeli5.getChildren().addAll(sivu1, sivu4);
         box.getChildren().add(napit_paneeli5);
         paneeli5.getChildren().add(box);
 
@@ -96,7 +97,7 @@ public class Sivut extends Application {
 
 
         paaIkkuna.setTitle("Mökkien varausjärjestelmä");
-        paaIkkuna.setScene(SCENE1);
+        paaIkkuna.setScene(aloitus);
         // paaIkkuna.setScene(SCENE3);
         paaIkkuna.show();
     }
@@ -391,9 +392,10 @@ public class Sivut extends Application {
         paneeli2.add(tervetuloa, 1,0);
 
         Button varaa = new Button("Varaa");
-        paneeli2.add(varaa, 2, 9);
+        //paneeli2.add(varaa, 2, 9);
 
         MokkiTable table = new MokkiTable();
+
 
         if (valittuMokki != null) {
             HashMap<String, String> mokinTiedot = new HashMap();
@@ -404,9 +406,12 @@ public class Sivut extends Application {
             for (Mokki x : Mokit) {
                 table.getItems().add(x);
             }
+            paneeli2.add(table, 0, 0);
+            paneeli2.add(new MokkiInspectPane(valittuMokki, "plain"), 1, 1);
+            paneeli2.add(new Label("Tässä voisi olla kuva mökistä"), 0, 1);
         }
 
-        paneeli2.getChildren().add(table);
+
 
         varaa.setOnAction(e -> {
             switchScenes(SCENE3);
@@ -414,11 +419,11 @@ public class Sivut extends Application {
 
         Button nappainSEURAAVA = new Button("Seuraava");
         nappainSEURAAVA.setOnAction(e -> switchScenes(SCENE3));
-        paneeli2.add(nappainSEURAAVA, 1,9);
+        paneeli2.add(nappainSEURAAVA, 1,3);
 
         Button nappainEDELLINEN = new Button("Edellinen");
         nappainEDELLINEN.setOnAction(e -> switchScenes(SCENE1));
-        paneeli2.add(nappainEDELLINEN, 0, 9);
+        paneeli2.add(nappainEDELLINEN, 0, 3);
 
         SCENE2 = new Scene(paneeli2, 600,400);
         return SCENE2;
