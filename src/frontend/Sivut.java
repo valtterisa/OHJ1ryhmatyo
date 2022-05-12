@@ -20,6 +20,7 @@ import src.backend.api.BackendAPI;
 import src.backend.api.MokkiFunctions;
 import src.backend.api.VarausFunctions;
 import src.backend.datatypes.Alue;
+import src.backend.datatypes.Asiakas;
 import src.backend.datatypes.Mokki;
 import src.backend.datatypes.Varaus;
 import src.frontend.ObjectUI.YleisNakyma;
@@ -88,6 +89,8 @@ public class Sivut extends Application {
         sivu2.setOnAction(e-> paaIkkuna.setScene(SCENE2));
         sivu3.setOnAction(e-> paaIkkuna.setScene(SCENE3));
         sivu4.setOnAction(e-> paaIkkuna.setScene(SCENE4));
+
+
 
         paaIkkuna.setTitle("Mökkien varausjärjestelmä");
         paaIkkuna.setScene(SCENE1);
@@ -187,6 +190,11 @@ public class Sivut extends Application {
                                     "Molestie"
         );
 
+        // TODO
+        // paikkakuntien haku comboboksiin (näkymä joka hakee kaikki paikkakunnat -> paikkakunnat listaan)
+        // tieto hashmappiin ja haku kannasta tietojen täsmätessä
+        // metodeihin pilkkominen
+
         TableView<Mokki> vapaatMokit = new TableView<Mokki>();
 
         TableColumn<Mokki, String> otsikko1 = new TableColumn<>("Mökki_id");
@@ -265,30 +273,41 @@ public class Sivut extends Application {
             for (Mokki i : mokit) {
                 mokkiId.add(i.getMokki_id());
             }
+            HashMap<String, String> mokkiparams = new HashMap<>();
 
-            System.out.println(mokkiId);
 
             // haetaan mokki_id perusteella varauksia
+
             HashMap<String, String> varausParam = new HashMap<String, String>();
             for (String id : mokkiId) {
                 varausParam.put("mokki_mokki_id", id);
-            }
 
-            System.out.println(varausParam);
+            }
 
             ArrayList<Varaus> varauksetJotkaSopii = VarausFunctions.getVaraus(varausParam);
 
-            System.out.println(varauksetJotkaSopii);
+
+            // kerätään haluttujen kohteiden alkupvm
+            ArrayList<String> start_dates = new ArrayList<String>();
+            for (Varaus start_date : varauksetJotkaSopii) {
+                start_dates.add(start_date.getVarattu_alkupvm());
+
+            }
+
+
+
+            // kerätään haluttujen kohteiden loppupvm
+            ArrayList<String> end_dates = new ArrayList<String>();
+            for (Varaus end_date : varauksetJotkaSopii) {
+                end_dates.add(end_date.getVarattu_loppupvm());
+            }
+
+
+
+
 
             /*for (Mokki x : mokit) {
-                Date start_date = new Date();
-                Date end_date;
-                // pitäskö kannassa olla aikamuodossa Stringin sijaan? vertailu ei muuten toimi...
-                if (!(start_date.before(checkInDatePicker.getValue()) || end_date.after(checkOutDatePicker.getValue()))) {
-                    vapaatMokit.getItems().add(x);
-                } else {
-                    continue;
-                }
+                vapaatMokit.getItems().add(x);
             }*/
 
         });
@@ -356,11 +375,15 @@ public class Sivut extends Application {
         return SCENE2;
     }
 
+
     private Scene KolmasSivu() {
+        HashMap<String, String> varaus_params1 = new HashMap<>();
         Pane paneeli3 = new Pane();  //Luodaan paneeli ensimmäiselle sivulle ja määritellään se
         paneeli3.setMinSize(200, 200);
 
-
+        /**
+         * Luodaan tekstikentät
+         */
         TextField tekstikentta1  = new TextField();
         tekstikentta1.setLayoutX(105.0);
         tekstikentta1.setLayoutY(50.0);
@@ -400,6 +423,10 @@ public class Sivut extends Application {
         tekstikentta_hinta.setLayoutX(375);
         tekstikentta_hinta.setLayoutY(205);
 
+
+        /**
+         * Nappien luonti
+         */
         Button maksa = new Button("Maksa");
         maksa.setLayoutX(420);
         maksa.setLayoutY(240);
@@ -417,7 +444,9 @@ public class Sivut extends Application {
         nappainSEURAAVA3.setLayoutX(535);
         nappainSEURAAVA3.setLayoutY(375);
 
-
+        /**
+         * Maksa napin toiminnalisuus.
+         */
         maksa.setOnAction(e-> {
             String Etunimi = tekstikentta2.getText();
             String Sukunimi = tekstikentta3.getText();
@@ -444,26 +473,32 @@ public class Sivut extends Application {
             if (Sahkoposti.length() > 0) {
                 asiakas_params.put("email", Sahkoposti);
             }
-        BackendAPI.postAsiakas(asiakas_params);
+
+
+            Asiakas uusiAsiakas = BackendAPI.postAsiakas(asiakas_params);
+            varaus_params1.put("asiakas_id", uusiAsiakas.getAsiakas_id());
+            varaus_params1.put("mokki_mokki_id", valittuMokki.getMokki_id());
+            BackendAPI.postVaraus(varaus_params1);
 
         });
-        // TODO näille napeille välit
-        Button nappainSEURAAVA = new Button("Seuraava");
-        nappainSEURAAVA.setOnAction(e -> switchScenes(SCENE4));
-        paneeli3.getChildren().add(nappainSEURAAVA);
 
-        Button nappainEDELLINEN = new Button("Edellinen");
-        nappainEDELLINEN.setOnAction(e -> switchScenes(SCENE2));
-        paneeli3.getChildren().add(nappainEDELLINEN);
+
+
 
         paneeli3.getChildren().addAll(tekstikentta1,tekstikentta2,tekstikentta6
                 ,tekstikentta3,tekstikentta4,tekstikentta5,tekstikentta7,tekstikentta_hinta,maksa);
         paneeli3.getChildren().addAll(nappainEDELLINEN3,nappainSEURAAVA3);
-
+        /**
+         * Lisätään objektit Pane "paneeli3".
+         */
 
 
         SCENE3 = new Scene(paneeli3, 600,400);
         return SCENE3;
+        /**
+         * Palauttaa ikkuna 3:sen
+         * @return
+         */
     }
 
     private Scene NeljasSivu(Stage stage) {
