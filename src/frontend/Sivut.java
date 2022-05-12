@@ -452,7 +452,7 @@ public class Sivut extends Application {
         tekstikentta1.setLayoutX(105.0);
         tekstikentta1.setLayoutY(50.0);
         try {
-            tekstikentta1.setText("Sijainti: "+valittuMokki.getAlue()+ "Nimi: "+valittuMokki.getMokkinimi());
+            tekstikentta1.setText("Sijainti: "+valittuMokki.getAlue()+ "  Nimi: "+valittuMokki.getMokkinimi());
         }
         catch(Exception e) {
             tekstikentta1.setText("Sijainti:    "+"Nimi:        ");
@@ -494,7 +494,7 @@ public class Sivut extends Application {
         tekstikentta_hinta.setLayoutX(375);
         tekstikentta_hinta.setLayoutY(205);
         try {
-            tekstikentta_hinta.setText("Nimi: "+valittuMokki.getMokkinimi() +valittuMokki.getHinta() +
+            tekstikentta_hinta.setText("Nimi: " + valittuMokki.getMokkinimi()+ " " +valittuMokki.getHinta() +
                     "Muut palvelu maksut.");
         }
         catch(Exception e) {
