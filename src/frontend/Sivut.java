@@ -335,20 +335,17 @@ public class Sivut extends Application {
                     System.out.println("alkupvm" + alkupvm);
                     System.out.println("loppupvm " + loppupvm);
                     
-                    
                     // jos alkupvm on ennen mökin varauksen loppupäivämäärää TAI loppupvm ennen mökin varauksen alkupäivämäärää
                     // lisää mökki TableViewiin
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                     try {
                         if (!(sdf.parse(checkInDatePicker.getValue().toString()).before(sdf.parse(loppupvm)))) {
-                            System.out.println("Ensimmäisen IF-lause");
                             if ((sdf.parse(checkOutDatePicker.getValue().toString()).after(sdf.parse(alkupvm)))) {
-                                System.out.println("Toinen IF-lause");
                                 vapaatMokit.getItems().add(x);
-                            } else {
-                                continue;
-                            }
-                            
+                            } 
+                        } else {
+                            System.out.println("Else-lausekkeessa");
+                            vapaatMokit.setPlaceholder(new Label("Mökkejä ei ole vapaana valitsemallasi ajanjaksolla")); 
                         }
                     } catch (ParseException e1) {
                         e1.printStackTrace();
