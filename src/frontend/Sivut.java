@@ -12,6 +12,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
@@ -26,6 +27,7 @@ import src.backend.datatypes.Varaus;
 import src.frontend.ObjectUI.YleisNakyma;
 import src.frontend.ObjectUI.MokkiHallinta.MokkiTable;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -387,6 +389,13 @@ public class Sivut extends Application {
         TextField tekstikentta1  = new TextField();
         tekstikentta1.setLayoutX(105.0);
         tekstikentta1.setLayoutY(50.0);
+        try {
+            tekstikentta1.setText("Sijainti: "+valittuMokki.getAlue()+ "Nimi: "+valittuMokki.getMokkinimi());
+        }
+        catch(Exception e) {
+            tekstikentta1.setText("Sijainti:    "+"Nimi:        ");
+        }
+
 
 
         TextField tekstikentta2  = new TextField();
@@ -422,6 +431,13 @@ public class Sivut extends Application {
         TextField tekstikentta_hinta = new TextField();
         tekstikentta_hinta.setLayoutX(375);
         tekstikentta_hinta.setLayoutY(205);
+        try {
+            tekstikentta_hinta.setText("Nimi: "+valittuMokki.getMokkinimi() +valittuMokki.getHinta() +
+                    "Muut palvelu maksut.");
+        }
+        catch(Exception e) {
+            tekstikentta_hinta.setText("Mökkiä ei valittu!");
+        }
 
 
         /**
@@ -473,12 +489,18 @@ public class Sivut extends Application {
             if (Sahkoposti.length() > 0) {
                 asiakas_params.put("email", Sahkoposti);
             }
+            try {
+                Asiakas uusiAsiakas = BackendAPI.postAsiakas(asiakas_params);
+                varaus_params1.put("asiakas_id", uusiAsiakas.getAsiakas_id());
+                varaus_params1.put("mokki_mokki_id", valittuMokki.getMokki_id());
+                BackendAPI.postVaraus(varaus_params1);
+            }
+            catch(Exception b) {
+                System.out.println("Jotain meni pieleen" +
+                        "Tarkista postinumeron oikeellisuus ja muut tiedot");
+            }
 
 
-            Asiakas uusiAsiakas = BackendAPI.postAsiakas(asiakas_params);
-            varaus_params1.put("asiakas_id", uusiAsiakas.getAsiakas_id());
-            varaus_params1.put("mokki_mokki_id", valittuMokki.getMokki_id());
-            BackendAPI.postVaraus(varaus_params1);
 
         });
 
