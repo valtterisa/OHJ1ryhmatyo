@@ -27,7 +27,8 @@ import src.backend.datatypes.Varaus;
 import src.frontend.ObjectUI.YleisNakyma;
 import src.frontend.ObjectUI.MokkiHallinta.MokkiTable;
 
-import java.sql.SQLIntegrityConstraintViolationException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -130,10 +131,11 @@ public class Sivut extends Application {
         };             
         checkInDatePicker.setConverter(converter);
         checkInDatePicker.setPromptText(pattern.toLowerCase());
+
         checkOutDatePicker.setConverter(converter);
         checkOutDatePicker.setPromptText(pattern.toLowerCase());
         
-        // varauksen ajankohdan valinta
+        // varauksen alku ajankohdan valinta
         checkInDatePicker.setValue(LocalDate.now());
         final Callback<DatePicker, DateCell> dayCellFactory = 
             new Callback<DatePicker, DateCell>() {
@@ -153,7 +155,25 @@ public class Sivut extends Application {
                 };
             }
         };
+
+        // varauksen loppu ajankohdan valinta
+        checkOutDatePicker.setValue(LocalDate.now());
+        final Callback<DatePicker, DateCell> dayCellFactory2 = 
+            new Callback<DatePicker, DateCell>() {
+                @Override
+                public DateCell call(final DatePicker datePicker) {
+                    return new DateCell() {
+                        @Override
+                        public void updateItem(LocalDate item, boolean empty) {
+                            super.updateItem(item, empty);
+                    }
+                };
+            }
+        };
+
+        checkInDatePicker.setDayCellFactory(dayCellFactory2);
         checkOutDatePicker.setDayCellFactory(dayCellFactory);
+
         checkOutDatePicker.setValue(checkInDatePicker.getValue().plusDays(1));
 
         HBox paneeli = new HBox(5);  //Luodaan paneeli ensimmäiselle sivulle ja määritellään se
@@ -287,21 +307,48 @@ public class Sivut extends Application {
             }
 
             ArrayList<Varaus> varauksetJotkaSopii = VarausFunctions.getVaraus(varausParam);
-
-
-            // kerätään haluttujen kohteiden alkupvm
-            ArrayList<String> start_dates = new ArrayList<String>();
-            for (Varaus start_date : varauksetJotkaSopii) {
-                start_dates.add(start_date.getVarattu_alkupvm());
-
+            
+            ArrayList<String> alku_pvm = new ArrayList<String>(); 
+            //pvm = {alkupvm,loppupvm,alkupvm,loppupvm...}
+            for (Varaus i : varauksetJotkaSopii) {
+                alku_pvm.add(i.getVarattu_alkupvm());
             }
 
+            ArrayList<String> loppu_pvm = new ArrayList<String>(); 
+            //pvm = {alkupvm,loppupvm,alkupvm,loppupvm...}
+            for (Varaus i : varauksetJotkaSopii) {
+                loppu_pvm.add(i.getVarattu_alkupvm());
+            }
+            
+            for (Mokki x : mokit) {
 
+                String alkupvm;
+                String loppupvm;
 
-            // kerätään haluttujen kohteiden loppupvm
-            ArrayList<String> end_dates = new ArrayList<String>();
-            for (Varaus end_date : varauksetJotkaSopii) {
-                end_dates.add(end_date.getVarattu_loppupvm());
+                for (int i = 0; i < alku_pvm.size(); i++) {
+                    
+                    // ottaa aina kaksi ensimmäistä päivämäärää ja asettaa ne muuttujiin
+                    alkupvm = alku_pvm.get(i);
+                    loppupvm = loppu_pvm.get(i);
+                    
+                    
+                    // jos alkupvm on ennen mökin varauksen loppupäivämäärää TAI loppupvm ennen mökin varauksen alkupäivämäärää
+                    // lisää mökki TableViewiin
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    try {
+                        if (!(sdf.parse(checkInDatePicker.getValue().toString()).before(sdf.parse(loppupvm)))) {
+                            if ((sdf.parse(checkOutDatePicker.getValue().toString()).after(sdf.parse(alkupvm)))) {
+                                
+                            } else {
+                                continue;
+                            }
+                            vapaatMokit.getItems().add(x);
+                        }
+                    } catch (ParseException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            
             }
 
 
