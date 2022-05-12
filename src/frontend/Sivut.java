@@ -317,7 +317,7 @@ public class Sivut extends Application {
             ArrayList<String> loppu_pvm = new ArrayList<String>(); 
             //pvm = {alkupvm,loppupvm,alkupvm,loppupvm...}
             for (Varaus i : varauksetJotkaSopii) {
-                loppu_pvm.add(i.getVarattu_alkupvm());
+                loppu_pvm.add(i.getVarattu_loppupvm());
             }
             
             for (Mokki x : mokit) {
@@ -330,6 +330,9 @@ public class Sivut extends Application {
                     // ottaa aina kaksi ensimmäistä päivämäärää ja asettaa ne muuttujiin
                     alkupvm = alku_pvm.get(i);
                     loppupvm = loppu_pvm.get(i);
+
+                    System.out.println("alkupvm" + alkupvm);
+                    System.out.println("loppupvm " + loppupvm);
                     
                     
                     // jos alkupvm on ennen mökin varauksen loppupäivämäärää TAI loppupvm ennen mökin varauksen alkupäivämäärää
@@ -337,12 +340,14 @@ public class Sivut extends Application {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                     try {
                         if (!(sdf.parse(checkInDatePicker.getValue().toString()).before(sdf.parse(loppupvm)))) {
+                            System.out.println("Ensimmäisen IF-lause");
                             if ((sdf.parse(checkOutDatePicker.getValue().toString()).after(sdf.parse(alkupvm)))) {
-                                
+                                System.out.println("Toinen IF-lause");
+                                vapaatMokit.getItems().add(x);
                             } else {
                                 continue;
                             }
-                            vapaatMokit.getItems().add(x);
+                            
                         }
                     } catch (ParseException e1) {
                         e1.printStackTrace();
@@ -350,19 +355,11 @@ public class Sivut extends Application {
                 }
             
             }
-
-
-
-
-
-            /*for (Mokki x : mokit) {
-                vapaatMokit.getItems().add(x);
-            }*/
-
         });
 
         // nappi SCENE:n vaihtoon
         Button nappainSEURAAVA = new Button("Seuraava");
+        
         nappainSEURAAVA.setOnAction(e -> switchScenes(SCENE2));
 
         // tableview tässä boksissa
