@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import src.backend.api.BackendAPI;
 import src.backend.datatypes.Varaus;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.HashMap;
 
 public class VarausDeleteNakyma extends VBox {
@@ -46,12 +47,18 @@ public class VarausDeleteNakyma extends VBox {
             HashMap<String, String> params = new HashMap<>();
             params.put("varaus_id", this.vanhaVaraus.getVaraus_id() + "");
 
-            String deleteMSG = BackendAPI.deleteVaraus(params);
+            String deleteMSG  = "error";
+            try {
+                deleteMSG = "Poisto onnistui. Poistettujen varausten määrä: " + BackendAPI.deleteVaraus(params);
+            }
+            catch(Exception f) {
+                deleteMSG = "Ei voi poistaa varausta, joka on osana laskua";
+            }
             System.out.println(deleteMSG);
 
             buttonPane.getChildren().clear();
             cancelButton.setText("Sulje");
-            this.title.setText("Poisto onnistui. Poistettujen varausten määrä: " + deleteMSG);
+            this.title.setText(deleteMSG);
             buttonPane.getChildren().add(cancelButton);
             parent.getTable().getItems().removeAll(parent.getTable().getItems());
         });
