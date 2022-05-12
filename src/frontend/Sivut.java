@@ -55,9 +55,12 @@ public class Sivut extends Application {
      * Metodi liittää neljä ikkunaa niille kuuluviin metodeihin sekä määrittelee käynnistyksen.
      */
 
+    private Mokki valittuMokki;
+
     HashMap<String, String> asiakas_params = new HashMap<>();
 
     public void start(Stage paaIkkuna)  {
+
         STAGE = paaIkkuna;
         SCENE1 = EnsimmainenSivu();
         SCENE2 = ToinenSivu();
@@ -277,7 +280,7 @@ public class Sivut extends Application {
 
             System.out.println(varauksetJotkaSopii);
 
-            for (Mokki x : mokit) {
+            /*for (Mokki x : mokit) {
                 Date start_date = new Date();
                 Date end_date;
                 // pitäskö kannassa olla aikamuodossa Stringin sijaan? vertailu ei muuten toimi...
@@ -286,7 +289,8 @@ public class Sivut extends Application {
                 } else {
                     continue;
                 }
-            }
+            }*/
+
         });
 
         // nappi SCENE:n vaihtoon
@@ -323,13 +327,15 @@ public class Sivut extends Application {
 
         MokkiTable table = new MokkiTable();
 
-        HashMap<String, String> mokinTiedot = new HashMap();
-        mokinTiedot.put("mokki_id", "1");
+        if (valittuMokki != null) {
+            HashMap<String, String> mokinTiedot = new HashMap();
+            mokinTiedot.put("mokki_id", valittuMokki.getMokki_id());
 
-        ArrayList<Mokki> Mokit = BackendAPI.getMokki(mokinTiedot);
-        System.out.println(Mokit);
-        for (Mokki x : Mokit) {
-            table.getItems().add(x);
+            ArrayList<Mokki> Mokit = BackendAPI.getMokki(mokinTiedot);
+            System.out.println(Mokit);
+            for (Mokki x : Mokit) {
+                table.getItems().add(x);
+            }
         }
 
         paneeli2.getChildren().add(table);
