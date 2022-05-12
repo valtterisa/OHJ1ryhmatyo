@@ -13,8 +13,12 @@ public class AlueFunctions {
         params.put("alue_id", alue_id);
         DatabaseConnection db = new DatabaseConnection();
         ArrayList<ArrayList<String>> response = db.doSQL("get", "alue", params);
-
-        return response.get(0).get(1);
+        if (response.size() > 0) {
+            return response.get(0).get(1);
+        }
+        else {
+            return null;
+        }
     }
 
     public static Alue postAlue(HashMap<String, String> params) {
