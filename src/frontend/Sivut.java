@@ -356,12 +356,24 @@ public class Sivut extends Application {
                 }
             
             }
+
+            // tyhjennetään listat, jotta voi hakea uusia mökkejä
+            mokit.removeAll(mokit);
+            loppu_pvm.removeAll(loppu_pvm);
+            alku_pvm.removeAll(alku_pvm);
+            varauksetJotkaSopii.removeAll(varauksetJotkaSopii);
+            
+
         });
 
         // nappi SCENE:n vaihtoon
         Button nappainSEURAAVA = new Button("Seuraava");
         
-        nappainSEURAAVA.setOnAction(e -> switchScenes(SCENE2));
+        nappainSEURAAVA.setOnAction(e -> {
+            valittuMokki = vapaatMokit.getSelectionModel().getSelectedItem();
+            System.out.println(valittuMokki);
+            switchScenes(SCENE2);
+        });
 
         // tableview tässä boksissa
         HBox tableview = new HBox();
@@ -393,9 +405,8 @@ public class Sivut extends Application {
 
         MokkiTable table = new MokkiTable();
 
-
         if (valittuMokki != null) {
-            HashMap<String, String> mokinTiedot = new HashMap();
+            HashMap<String, String> mokinTiedot = new HashMap<String, String>();
             mokinTiedot.put("mokki_id", valittuMokki.getMokki_id());
 
             ArrayList<Mokki> Mokit = BackendAPI.getMokki(mokinTiedot);
