@@ -97,7 +97,7 @@ public class Sivut extends Application {
 
 
         paaIkkuna.setTitle("Mökkien varausjärjestelmä");
-        paaIkkuna.setScene(aloitus);
+        paaIkkuna.setScene(SCENE1);
         // paaIkkuna.setScene(SCENE3);
         paaIkkuna.show();
     }
@@ -372,6 +372,7 @@ public class Sivut extends Application {
         nappainSEURAAVA.setOnAction(e -> {
             valittuMokki = vapaatMokit.getSelectionModel().getSelectedItem();
             System.out.println(valittuMokki);
+            SCENE2 = ToinenSivu();
             switchScenes(SCENE2);
         });
 
@@ -426,6 +427,7 @@ public class Sivut extends Application {
         });
 
         Button nappainSEURAAVA = new Button("Seuraava");
+        SCENE3 = KolmasSivu();
         nappainSEURAAVA.setOnAction(e -> switchScenes(SCENE3));
         paneeli2.add(nappainSEURAAVA, 1,3);
 
