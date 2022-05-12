@@ -326,7 +326,7 @@ public class Sivut extends Application {
                 String alkupvm;
                 String loppupvm;
 
-                for (int i = 0; i < alku_pvm.size(); i++) {
+                for (int i = 0; i < varauksetJotkaSopii.size(); i++) {
                     
                     // ottaa aina kaksi ensimmäistä päivämäärää ja asettaa ne muuttujiin
                     alkupvm = alku_pvm.get(i);
