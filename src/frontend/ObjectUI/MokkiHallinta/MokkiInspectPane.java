@@ -26,6 +26,21 @@ public class MokkiInspectPane extends VBox{
         construct();
         applyStyle();
     }
+    public MokkiInspectPane(Mokki selectedItem, String plain) {
+        this.selectedMokki = selectedItem;
+        this.editButton = new Button("Muokkaa valittua mökkiä");
+        this.closeButton = new Button("X");
+        this.deleteButton = new Button("Poista valittu mökki");
+
+        this.editButton.setVisible(false);
+        this.closeButton.setVisible(false);
+        this.deleteButton.setVisible(false);
+
+        //generateActions();
+        construct();
+        applyStyle();
+    }
+
 
     private void construct() {
         if (this.selectedMokki != null) {
